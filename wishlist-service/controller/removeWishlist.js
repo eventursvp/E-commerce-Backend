@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 exports.removeWishlist = async(req,res)=>{
     try {
-        const {wishlistId,addedBy} = req.body
+        const {wishlistId,productId,addedBy} = req.body
 
           // const { loginUser } = req;
         // if (loginUser?.data?._id != addedBy) {
@@ -17,15 +17,25 @@ exports.removeWishlist = async(req,res)=>{
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 
-        if(!(wishlistId && addedBy)){
+        if(!(productId && addedBy && wishlistId)){
             return res.status(403).send({status:0,message:"All fields are required",data:[]})
         }
     
-          if(!(mongoose.Types.ObjectId.isValid(wishlistId) && mongoose.Types.ObjectId.isValid(addedBy))){
+          if(!(mongoose.Types.ObjectId.isValid(productId) && mongoose.Types.ObjectId.isValid(addedBy)  && mongoose.Types.ObjectId.isValid(wishlistId))){
               return res.status(403).send({status:0,message:"Invalid request",data:[]})
           }
 
-          const data = await WishList.findByIdAndDelete({_id:wishlistId,addedBy:addedBy});
+          const wishlistData = await WishList.findOne({
+            _id: wishlistId,
+            items: { $in: [productId] },
+            addedBy: addedBy
+        });
+          if(!wishlistData){
+            return res.status(403).send({status:0,message:"Record not found",data:[]})
+
+          }
+
+          const data = await WishList.findOneAndUpdate({_id:wishlistId,addedBy:addedBy },{ $pull: { items: productId } }, { new: true });
 
           if(!data){
             return res.status(404).send({status:0,message:"Record not found",data:[]})
