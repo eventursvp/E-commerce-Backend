@@ -2,8 +2,17 @@ const Order = require("model-hook/Model/orderModel");
 const User = require("model-hook/Model/adminModel");
 const Product = require("model-hook/Model/productModel");
 const Cart = require("model-hook/Model/cartModel");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const orderid = require("order-id")("key");
+const Coupon = require("model-hook/Model/userCoupon");
+
+
+const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
 
 exports.createOrder = async (req, res) => {
     try {
@@ -15,6 +24,7 @@ exports.createOrder = async (req, res) => {
             addressId,
             quantity,
             price,
+            couponCode,
             variantId,
         } = req.body;
 
@@ -52,8 +62,8 @@ exports.createOrder = async (req, res) => {
         }
 
         const productData = await Product.findOne({
-            _id:productId,
-            productAvailable:"STOCK"
+            _id: productId,
+            productAvailable: "STOCK",
         });
 
         if (!productData) {
@@ -63,10 +73,74 @@ exports.createOrder = async (req, res) => {
                 data: [],
             });
         }
-        if(!variantData.variants.some(data => data.price === price)) {
-            return res.status(403).send({status: 0, message: "Invalid Amount", data: []});
+        if (!variantData.variants.some((data) => data.price === price)) {
+            return res
+                .status(403)
+                .send({ status: 0, message: "Invalid Amount", data: [] });
         }
-        
+
+        let totalPrice = price * quantity;
+
+        let couponDiscount = 0;
+        if (couponCode) {
+
+            const currentDate = new Date();
+            const formattedDate = formatDate(currentDate);
+
+            console.log("formattedDate==>",formattedDate);
+            const coupon = await Coupon.findOne({
+                code: couponCode,
+                isActive: true,
+                startDate: { $lte: formattedDate },
+                endDate: { $gte: formattedDate },
+                productIds: { $all: [productId] }
+            });
+
+            console.log("Coupon==>", coupon);
+            
+            if (!coupon) {
+                return res
+                    .status(404)
+                    .send({ status: 0, message: "Coupon not found", data: [] });
+            }
+
+            
+            // console.log("CouponCode==>",coupon);
+
+            if (coupon) {
+                // if (coupon.startDate > currentDate || coupon.endDate < currentDate) {
+                //     return res.status(404).send({ status: 0, message: "Coupon not found", data: [] });
+                // }
+
+                if (coupon.maxUses === coupon.usedCount) {
+                    return res
+                        .status(400)
+                        .send({
+                            status: 0,
+                            message: "Coupon usage limit reached",
+                            data: [],
+                        });
+                }
+
+                // Apply coupon discount based on coupon type
+                if (coupon.discountType === "PERCENTAGE") {
+                    // console.log("coupon.discountTypePER==>",coupon.discountType);
+                    couponDiscount = price * (coupon.discountValue / 100);
+                    // console.log("coupon.discountValuePER==>",coupon.discountValue);
+                } else if (coupon.discountType === "AMOUNT") {
+                    // console.log("coupon.discountValueAM==>",coupon.discountValue);
+
+                    couponDiscount = coupon.discountValue;
+                }
+
+                // Update coupon usage count
+                coupon.usedCount += 1;
+                await coupon.save();
+            }
+        }
+
+        totalPrice -= couponDiscount;
+
         if (cartId) {
             if (!mongoose.Types.ObjectId.isValid(cartId)) {
                 return res.status(403).send({
@@ -95,9 +169,10 @@ exports.createOrder = async (req, res) => {
                 cartId: cartId,
                 addressId: addressId,
                 productId: cartData.productId,
-                price: cartData.price,
+                price: totalPrice,
                 quantity: cartData.quantity,
                 variantId: cartData.variantId,
+                couponCode: couponCode,
             };
             const order = await new Order(obj).save();
             if (!order) {
@@ -156,9 +231,10 @@ exports.createOrder = async (req, res) => {
                 paymentMode: paymentMode,
                 addressId: addressId,
                 productId: productId,
-                price: price,
+                price: totalPrice,
                 quantity: quantity,
                 variantId: variantId,
+                couponCode: couponCode,
             };
             const order = await new Order(obj).save();
             if (!order) {

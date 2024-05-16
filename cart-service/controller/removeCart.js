@@ -37,10 +37,14 @@ exports.removeCart = async (req, res) => {
             });
         }
 
-        const data = await Cart.findByIdAndDelete({
-            _id: cartId,
-            addedBy: addedBy,
-        });
+        const data = await Cart.findByIdAndUpdate(
+            {
+                _id: cartId,
+                addedBy: addedBy,
+            },
+            { $set: { isDeleted: true } },
+            { new: true }
+        );
 
         if (!data) {
             return res.status(403).send({
@@ -49,7 +53,9 @@ exports.removeCart = async (req, res) => {
                 data: [],
             });
         }
-        return res.status(200).send({ status: 1, message: "Record deleted successfully!" });
+        return res
+            .status(200)
+            .send({ status: 1, message: "Record deleted successfully!" });
     } catch (error) {
         console.log("Catch Error:==>", error);
         return res.status(500).send({
