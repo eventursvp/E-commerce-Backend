@@ -91,12 +91,10 @@ exports.createOrder = async (req, res) => {
             const coupon = await Coupon.findOne({
                 code: couponCode,
                 isActive: true,
-                startDate: { $lte: formattedDate },
-                endDate: { $gte: formattedDate },
+                // startDate: { $lte: formattedDate },
+                // endDate: { $gte: formattedDate },
                 productIds: { $all: [productId] }
             });
-
-            console.log("Coupon==>", coupon);
             
             if (!coupon) {
                 return res
@@ -108,9 +106,12 @@ exports.createOrder = async (req, res) => {
             // console.log("CouponCode==>",coupon);
 
             if (coupon) {
-                // if (coupon.startDate > currentDate || coupon.endDate < currentDate) {
-                //     return res.status(404).send({ status: 0, message: "Coupon not found", data: [] });
-                // }
+
+                if(!(currentDate <= coupon.endDate)){
+                    return res
+                    .status(404)
+                    .send({ status: 0, message: "Coupon expired", data: [] });
+                }
 
                 if (coupon.maxUses === coupon.usedCount) {
                     return res
@@ -129,7 +130,6 @@ exports.createOrder = async (req, res) => {
                     // console.log("coupon.discountValuePER==>",coupon.discountValue);
                 } else if (coupon.discountType === "AMOUNT") {
                     // console.log("coupon.discountValueAM==>",coupon.discountValue);
-
                     couponDiscount = coupon.discountValue;
                 }
 
