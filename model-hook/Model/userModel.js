@@ -1,50 +1,19 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const Users = new Schema({
-    firstName: {
-        type: String
-    },
-    lastName: {
-        type: String
-    },
-    email: {
-        type: String
-    },
-    mobile: {
-        type: String
-    },
-    password: {
-        type: String
-    },
-    gender: {
-        type: String
-    },
-    dob: {
-        type: String
-    },
-    alternateNumber: {
-        type: String
-    },
-    addresses: [{
-        name: { type: String },
-        mobile: { type: String },
-        address: { type: String },
-        pincode: { type: String },
-        location: { type: String },
-        city: { type: String },
-        state: { type: String },
-        type: { type: String },
-        default: { type: Boolean, default: false },
-    }],
-    isBlocked: { type: Boolean, default: false },
-    isDeleted: { type: Boolean, default: false },
-}, {
-    timestamps: true
-});
+const usersSchema = new mongoose.Schema({
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true, maxlength: 256 },
+    gender: { type: String, enum: ['Male', 'Female', 'Other'], required: true },
+    phoneNo: { type: String, default: "", },
+    role: { type: String, default: 'User' },
+    emailVerified: { type: Boolean, default: false },
+    isLoggedOut: { type: Boolean, default: false },
+    is2FAEnabled: { type: Boolean, default: false },
+    phoneVerified: { type: Boolean, default: false }
+}, { timestamps: true });
 
-module.exports = mongoose.model('Users', Users,'Users');
+const Users = mongoose.model('User', usersSchema, 'User');
 
-
-
-
+module.exports = Users;
