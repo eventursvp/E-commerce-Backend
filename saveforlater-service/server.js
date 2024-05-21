@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express()
-const port = process.env.PORT || 5018
+const port = process.env.PORT || 5020
 const routes = require('./routes/index');
 const cors = require("cors");
 const helmet = require("helmet");
@@ -39,7 +39,7 @@ const limiter = rateLimit({
     error: 'Too many requests, please try again later.'
   }
 });
-app.use( limiter); 
+app.use(limiter); 
 
 app.use(bodyParser.json())
 app.use(

@@ -29,7 +29,9 @@ exports.addProduct = async (req, res) => {
             productWeight,
             materialType,
             countryOfOrigin,
-            expirationDate
+            expirationDate,
+            manufacturerContact,
+            packer
         } = req.body;
 
         if (
@@ -76,7 +78,9 @@ exports.addProduct = async (req, res) => {
                 releaseDate &&
                 productWeight &&
                 materialType &&
-                countryOfOrigin
+                countryOfOrigin &&
+                manufacturerContact &&
+                packer
             )
         ) {
             return res.status(403).send({
@@ -238,7 +242,9 @@ exports.addProduct = async (req, res) => {
                     productWeight,
                     materialType,
                     countryOfOrigin,
-                    expirationDate
+                    expirationDate,
+                    manufacturerContact,
+                    packer
                 }
         } else if(categoriesData.name === "toy"){
             productData = {
@@ -262,7 +268,9 @@ exports.addProduct = async (req, res) => {
                 releaseDate ,
                 productWeight,
                 materialType,
-                countryOfOrigin
+                countryOfOrigin,
+                manufacturerContact,
+                packer
             };
         } else{
             productData={
@@ -287,7 +295,9 @@ exports.addProduct = async (req, res) => {
                 productWeight,
                 materialType,
                 countryOfOrigin,
-                expirationDate
+                expirationDate,
+                manufacturerContact,
+                packer
             }
         }
          

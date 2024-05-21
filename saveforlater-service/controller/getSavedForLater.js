@@ -1,11 +1,9 @@
-const Cart = require('model-hook/Model/cartModel');
-const User = require('model-hook/Model/adminModel');
-const Product = require('model-hook/Model/productModel');
+const SaveForLater = require("model-hook/Model/saveforlaterModel");
+const Product = require("model-hook/Model/productModel");
+const Cart = require("model-hook/Model/cartModel");
+const mongoose = require("mongoose");
 
-const mongoose = require('mongoose');
-
-
-exports.getAllCart = async(req,res)=>{
+exports.getAllSaveForLater = async (req, res) => {
     try {
         const {addedBy} =req.body
 
@@ -23,11 +21,12 @@ exports.getAllCart = async(req,res)=>{
 
 
         const aggregate = [
-            { $match: { addedBy: new mongoose.Types.ObjectId(addedBy), isDeleted: false } },
+            { $match: { addedBy:new mongoose.Types.ObjectId(addedBy) ,isDeleted:false} },
+
             {
                 $lookup: {
                     from: "Product",
-                    let: { productId: "$productId", variantId: "$variantId" },
+                    let: { "productId": "$productId", "variantId": "$variantId" },
                     pipeline: [
                         {
                             $match: {
@@ -57,40 +56,22 @@ exports.getAllCart = async(req,res)=>{
                     ],
                     as: "productData"
                 },
+
             },
             {
                 $unwind: { path: "$productData", preserveNullAndEmptyArrays: true },
             },
             {
-                $addFields: {
-                    totalQuantity: "$quantity"
-                }
-            },
-            {
-                $group: {
-                    _id: null,
-                    cartData: {
-                        $push: {
-                            saveForLaterId: "$_id",
-                            quantity: "$quantity",
-                            productData: "$productData"
-                        }
-                    },
-                    totalQuantities: { $sum: "$totalQuantity" },
-                    totalAmount: { $sum: { $multiply: ["$productData.variant.price", "$quantity"] } },
-
-                }
-            },
-            {
                 $project: {
                     _id: 0,
-                    cartData: 1,
-                    totalQuantities: 1,
-                    totalAmount:1
+                    saveForLaterId: "$_id",
+                    productData: "$productData"
                 }
             }
+
+
         ];
-        const data = await Cart.aggregate(aggregate);
+        const data = await SaveForLater.aggregate(aggregate);
 
         if(!data || data.length ===0){
             return res.status(404).send({status:0,message:"Record not found",data:[]})
@@ -109,4 +90,4 @@ exports.getAllCart = async(req,res)=>{
             data: [],
         });
     }
-}
+};

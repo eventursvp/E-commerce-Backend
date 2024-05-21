@@ -113,6 +113,8 @@ const Product = new Schema(
             },
         },
         manufacturer: { type: String },
+        manufacturerContact: { type: String },
+
         modelNumber: {
             type: String,
         },
@@ -145,6 +147,8 @@ const Product = new Schema(
 
         isDeleted: { type: Boolean, default: false },
         addedBy: { type: Schema.ObjectId, ref: "Admin" },
+        packer: { type: String },
+
     },
     {
         timestamps: true,
