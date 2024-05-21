@@ -1,7 +1,6 @@
 const Product = require("model-hook/Model/productModel");
 const Admin = require("model-hook/Model/adminModel");
 const Categories = require("model-hook/Model/categoriesModel");
-const SubCategories = require("model-hook/Model/subCategories");
 
 const mongoose = require("mongoose");
 
@@ -17,11 +16,22 @@ exports.addProduct = async (req, res) => {
             options,
             images,
             description,
+            itemDimensions,
+            packageDimensions,
             addedBy,
             categoryId,
             subCategoryId,
             specificIdCategoryId,
             brandId,
+            manufacturer ,
+            modelNumber ,
+            releaseDate ,
+            productWeight,
+            materialType,
+            countryOfOrigin,
+            expirationDate,
+            manufacturerContact,
+            packer
         } = req.body;
 
         if (
@@ -49,18 +59,28 @@ exports.addProduct = async (req, res) => {
         // }
         if (
             !(
-                name ||
-                code ||
-                discount ||
-                tax ||
-                variants ||
-                images ||
-                description ||
-                addedBy ||
-                brandId ||
-                categoryId ||
-                subCategoryId ||
-                specificIdCategoryId
+                name &&
+                code &&
+                discount &&
+                tax &&
+                variants &&
+                images &&
+                description &&
+                itemDimensions &&
+                packageDimensions &&
+                addedBy &&
+                brandId &&
+                categoryId &&
+                subCategoryId &&
+                specificIdCategoryId &&
+                manufacturer &&
+                modelNumber &&
+                releaseDate &&
+                productWeight &&
+                materialType &&
+                countryOfOrigin &&
+                manufacturerContact &&
+                packer
             )
         ) {
             return res.status(403).send({
@@ -70,10 +90,74 @@ exports.addProduct = async (req, res) => {
             });
         }
 
+        const validUnits = ["meter", "centimeter", "millimeter", "inch", "foot"];
+
+        const validWeightUnits = ["kilogram", "gram", "pound", "tons"];
+
+
+        if (
+            !itemDimensions.length?.value ||
+            !itemDimensions.width?.value ||
+            !itemDimensions.height?.value ||
+            !itemDimensions.length?.unit ||
+            !itemDimensions.width?.unit ||
+            !itemDimensions.height?.unit ||
+            itemDimensions.length.value <= 0 ||
+            itemDimensions.width.value <= 0 ||
+            itemDimensions.height.value <= 0 ||
+            !validUnits.includes(itemDimensions.length.unit) ||
+            !validUnits.includes(itemDimensions.width.unit) ||
+            !validUnits.includes(itemDimensions.height.unit)
+        ) {
+            return res.status(403).send({
+                status: 0,
+                message: "Invalid item dimensions",
+                data: [],
+            });
+        }
+
+        // Validate packageDimensions
+        if (
+            !packageDimensions.length?.value ||
+            !packageDimensions.width?.value ||
+            !packageDimensions.height?.value ||
+            !packageDimensions.length?.unit ||
+            !packageDimensions.width?.unit ||
+            !packageDimensions.height?.unit ||
+            packageDimensions.length.value <= 0 ||
+            packageDimensions.width.value <= 0 ||
+            packageDimensions.height.value <= 0 ||
+            !validUnits.includes(packageDimensions.length.unit) ||
+            !validUnits.includes(packageDimensions.width.unit) ||
+            !validUnits.includes(packageDimensions.height.unit)
+        ) {
+            return res.status(403).send({
+                status: 0,
+                message: "Invalid package dimensions",
+                data: [],
+            });
+        }
+
+          // Validate productWeight
+          if (
+            !productWeight.value ||
+            !productWeight.unit ||
+            productWeight.value <= 0 ||
+            !validWeightUnits.includes(productWeight.unit)
+        ) {
+            return res.status(403).send({
+                status: 0,
+                message: "Invalid product weight",
+                data: [],
+            });
+        }
+
         const categoriesData = await Categories.findOne({
             _id: categoryId,
             active: true,
             isDeleted: false,
+            parentCategoryId:{$eq:null},
+            childCategoryId:{$eq:null}
         });
 
         if (!categoriesData) {
@@ -84,13 +168,32 @@ exports.addProduct = async (req, res) => {
             });
         }
 
-        const SubCategoriesData = await SubCategories.findOne({
+        const SubCategoriesData = await Categories.findOne({
             _id: subCategoryId,
             active: true,
             isDeleted: false,
+            parentCategoryId:{$ne:null},
+            childCategoryId:{$eq:null}
         });
 
         if (!SubCategoriesData) {
+            return res.status(404).send({
+                status: 0,
+                message: "SubCategory not found",
+                data: [],
+            });
+        }
+
+
+        const SpecificCategoriesData = await Categories.findOne({
+            _id: specificIdCategoryId,
+            active: true,
+            isDeleted: false,
+            parentCategoryId:{$ne:null},
+            childCategoryId:{$ne:null}
+        });
+
+        if (!SpecificCategoriesData) {
             return res.status(404).send({
                 status: 0,
                 message: "SubCategory not found",
@@ -115,21 +218,89 @@ exports.addProduct = async (req, res) => {
             }
         }
 
-        const productData = {
-            name,
-            code,
-            discount,
-            tax,
-            variants,
-            options,
-            images,
-            description,
-            addedBy,
-            categoryId,
-            subCategoryId,
-            brandId,
-            specificIdCategoryId
-        };
+        let productData ={}
+        if(categoriesData.name === "Beauty"){
+                productData={
+                    name,
+                    code,
+                    discount,
+                    tax,
+                    variants,
+                    options,
+                    images,
+                    description,
+                    itemDimensions,
+                    packageDimensions,
+                    addedBy,
+                    categoryId,
+                    subCategoryId,
+                    brandId,
+                    specificIdCategoryId,
+                    manufacturer ,
+                    modelNumber ,
+                    releaseDate ,
+                    productWeight,
+                    materialType,
+                    countryOfOrigin,
+                    expirationDate,
+                    manufacturerContact,
+                    packer
+                }
+        } else if(categoriesData.name === "toy"){
+            productData = {
+                name,
+                code,
+                discount,
+                tax,
+                variants,
+                options,
+                images,
+                description,
+                itemDimensions,
+                packageDimensions,
+                addedBy,
+                categoryId,
+                subCategoryId,
+                brandId,
+                specificIdCategoryId,
+                manufacturer ,
+                modelNumber ,
+                releaseDate ,
+                productWeight,
+                materialType,
+                countryOfOrigin,
+                manufacturerContact,
+                packer
+            };
+        } else{
+            productData={
+                name,
+                code,
+                discount,
+                tax,
+                variants,
+                options,
+                images,
+                description,
+                itemDimensions,
+                packageDimensions,
+                addedBy,
+                categoryId,
+                subCategoryId,
+                brandId,
+                specificIdCategoryId,
+                manufacturer ,
+                modelNumber ,
+                releaseDate ,
+                productWeight,
+                materialType,
+                countryOfOrigin,
+                expirationDate,
+                manufacturerContact,
+                packer
+            }
+        }
+         
 
         const data = await new Product(productData).save();
 

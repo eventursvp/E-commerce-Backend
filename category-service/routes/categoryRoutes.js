@@ -21,6 +21,9 @@ const {
     getAllSpecificCategories,
     getOneSubCategory,
     getAllSubCategories,
+    getAllCategoriesName,
+    getAllSubCategoriesName,
+    getAllSpecificCategoriesName
 } = require("../controller/getCategories");
 const {
     removeCategory,
@@ -36,6 +39,8 @@ router.post("/updateCategoryStatus", updateCategoryStatus);
 router.post("/getOneCategory", getOneCategory);
 router.post("/getAllCategories", getAllCategories);
 router.post("/removeCategory", removeCategory);
+router.post("/getAllCategoriesName", getAllCategoriesName);
+
 
 
 //ChildCategory
@@ -45,6 +50,8 @@ router.post("/getAllSubCategories", getAllSubCategories);
 router.post('/removeSubCategory',removeSubCategory);
 router.post('/updateSubCategory',updateSubCategory);
 router.post('/updateSubCategoryStatus',updateSubCategoryStatus);
+router.post('/getAllSubCategoriesName',getAllSubCategoriesName);
+
 
 
 //Specific Category
@@ -53,6 +60,8 @@ router.post("/updateSpecificCategory", updateSpecificCategory);
 router.post("/getOneSpecificCategory", getOneSpecificCategory);
 router.post("/getAllSpecificCategories", getAllSpecificCategories);
 router.post("/removeSpecificCategory", removeSpecificCategory);
+router.post("/getAllSpecificCategoriesName", getAllSpecificCategoriesName);
+
 
 
 

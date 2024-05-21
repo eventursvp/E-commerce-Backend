@@ -17,6 +17,10 @@ const SubCategories = require("../Model/subCategories");
 const User = require("../Model/userModel");
 const Wishlist = require("../Model/wishlistModel");
 const WishlistCollection = require("../Model/wishlistCollectionModel");
+const Faq = require("../Model/faqModel");
+
+const UserCoupon = require("../Model/userCoupon");
+const TermsAndConditions = require("../Model/terms&Conditions")
 
 
 mongoose.set("strictQuery", false);

@@ -16,6 +16,7 @@ let Orders = new Schema(
         productId: { type: Schema.ObjectId, ref: "Product" },
         quantity: { type: Number },
         price: { type: Number },
+        couponCode:{type:String,default:null}
     },
     {
         timestamps: true,

@@ -23,12 +23,11 @@ exports.getAllCart = async(req,res)=>{
 
 
         const aggregate = [
-            { $match: { addedBy:new mongoose.Types.ObjectId(addedBy) } },
-
+            { $match: { addedBy: new mongoose.Types.ObjectId(addedBy), isDeleted: false } },
             {
                 $lookup: {
                     from: "Product",
-                    let: { "productId": "$productId", "variantId": "$variantId" },
+                    let: { productId: "$productId", variantId: "$variantId" },
                     pipeline: [
                         {
                             $match: {
@@ -36,7 +35,7 @@ exports.getAllCart = async(req,res)=>{
                                     $and: [
                                         { $eq: ["$_id", "$$productId"] },
                                         { $eq: ["$isDeleted", false] },
-                                        // { $eq: ["$active", true] },
+                                        { $ne: ["$productAvailable", "OUTOFSTOCK"] },
                                     ]
                                 }
                             }
@@ -58,37 +57,38 @@ exports.getAllCart = async(req,res)=>{
                     ],
                     as: "productData"
                 },
-
             },
             {
                 $unwind: { path: "$productData", preserveNullAndEmptyArrays: true },
             },
             {
-                $addFields: { "productData.variant.qty": "$quantity" },
-            },
-            {
-                $addFields: { "productData.cartItemId": "$_id" },
+                $addFields: {
+                    totalQuantity: "$quantity"
+                }
             },
             {
                 $group: {
                     _id: null,
-                    cartId: { $first: "$_id" },
-                    itemData: { $push: "$productData" },
+                    cartData: {
+                        $push: {
+                            saveForLaterId: "$_id",
+                            quantity: "$quantity",
+                            productData: "$productData"
+                        }
+                    },
+                    totalQuantities: { $sum: "$totalQuantity" },
                     totalAmount: { $sum: { $multiply: ["$productData.variant.price", "$quantity"] } },
+
                 }
             },
             {
-                $addFields: {
-                    itemData: {
-                        $filter: {
-                            input: '$itemData',
-                            as: 'itemData',
-                            cond: { "$ne": [{ $type: '$$itemData.cartItemId' }, "missing"] }
-                        }
-                    }
+                $project: {
+                    _id: 0,
+                    cartData: 1,
+                    totalQuantities: 1,
+                    totalAmount:1
                 }
-            },
-            { $unset: ["_id"] }
+            }
         ];
         const data = await Cart.aggregate(aggregate);
 

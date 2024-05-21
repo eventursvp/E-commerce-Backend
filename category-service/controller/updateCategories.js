@@ -157,8 +157,8 @@ exports.updateSpecificCategory = async (req, res) => {
         const specificData = await Category.findOneAndUpdate(
             {
                 _id: specificCategoryId,
-                categoryId: { $ne: null },
-                subCategoryId: { $ne: null },
+                parentCategoryId: { $ne: null },
+                childCategoryId: { $ne: null },
             },
             {
                 $set: {

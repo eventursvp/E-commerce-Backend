@@ -96,7 +96,7 @@ exports.removeSubCategory = async(req,res) =>{
                 data: [],
             });
         }
-        const resp = await SubCategories.findByIdAndUpdate(
+        const resp = await Category.findByIdAndUpdate(
             subCategoryId,
             { $set: { isDeleted: true } },
             { new: true }
