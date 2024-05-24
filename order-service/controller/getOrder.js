@@ -1,5 +1,5 @@
 const Order = require("model-hook/Model/orderModel");
-const User = require("model-hook/Model/adminModel");
+const User = require("model-hook/Model/userModel");
 const Product = require("model-hook/Model/productModel");
 const Cart = require("model-hook/Model/cartModel");
 const mongoose = require("mongoose");
@@ -357,11 +357,11 @@ exports.getAdminOrders = async(req,res)=>{
             });
         }
 
-         // const { loginUser } = req;
+        //  const { loginUser } = req;
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-          // if (loginUser?.data?.role != "ADMIN") {
+        //   if (loginUser?.data?.role != "ADMIN") {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
 

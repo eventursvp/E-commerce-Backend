@@ -7,7 +7,11 @@ exports.createFaq = async(req,res)=>{
         const { name, faqs, addedBy } = req.body;
 
        
-        // if (loginUser?.data?.role != 'ADMIN') {
+        // const { loginUser } = req;
+        // if (loginUser?.data?._id != addedBy) {
+        //     return res.status(401).send({ message: "Unauthorized access." });
+        // }
+        // if (loginUser?.data?.role != 'Admin') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 

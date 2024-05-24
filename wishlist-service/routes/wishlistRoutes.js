@@ -1,4 +1,5 @@
 const express = require('express');
+const { jwtValidation } = require("model-hook/middleware/jwtValidation")
 
 const router = express.Router();
 
@@ -11,17 +12,17 @@ const {getOneWishlistCollection,getAllWishlistCollection} = require('../controll
 const {removeWishlistCollection} = require('../controller/removeCollection')
 
 
-router.post('/addtoWishlist',addtoWishlist);
-router.post('/getAllWishlist',getAllWishlist);
-router.post('/removeWishlist',removeWishlist);
+router.post('/addtoWishlist',/*jwtValidation,*/addtoWishlist);
+router.post('/getAllWishlist',/*jwtValidation,*/getAllWishlist);
+router.post('/removeWishlist',/*jwtValidation,*/removeWishlist);
 
 
-router.post('/createCollection',createCollection);
-router.post('/addToCollection',addToCollection);
+router.post('/createCollection',/*jwtValidation,*/createCollection);
+router.post('/addToCollection',/*jwtValidation,*/addToCollection);
 
-router.post('/getOneCollection',getOneWishlistCollection);
-router.post('/getAllCollection',getAllWishlistCollection);
-router.post('/removeCollection',removeWishlistCollection);
+router.post('/getOneCollection',/*jwtValidation,*/getOneWishlistCollection);
+router.post('/getAllCollection',/*jwtValidation,*/getAllWishlistCollection);
+router.post('/removeCollection',/*jwtValidation,*/removeWishlistCollection);
 
 
 module.exports = router;

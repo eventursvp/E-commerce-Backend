@@ -1,4 +1,5 @@
 const express = require('express');
+const { jwtValidation } = require("model-hook/middleware/jwtValidation")
 
 const router = express.Router();
 
@@ -8,11 +9,11 @@ const {removeSaveForLater} = require('../controller/removeSaveForLater');
 
 
 
-router.post('/addToSaveForLater',addToSaveForLater);
-router.post('/addToList',addToList);
+router.post('/addToSaveForLater',/*jwtValidation,*/addToSaveForLater);
+router.post('/addToList',/*jwtValidation,*/addToList);
 
-router.post('/getAllSaveForLater',getAllSaveForLater);
-router.post('/removeSaveForLater',removeSaveForLater);
+router.post('/getAllSaveForLater',/*jwtValidation,*/getAllSaveForLater);
+router.post('/removeSaveForLater',/*jwtValidation,*/removeSaveForLater);
 
 
 

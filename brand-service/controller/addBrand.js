@@ -7,11 +7,11 @@ exports.addBrand = async(req,res)=>{
     try {
         const {name,addedBy} = req.body
 
-         // const { loginUser } = req;
+        //  const { loginUser } = req;
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-        // if (loginUser?.data?.role != 'ADMIN') {
+        // if (loginUser?.data?.role != 'Admin') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 

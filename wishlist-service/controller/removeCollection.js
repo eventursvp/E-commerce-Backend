@@ -1,5 +1,5 @@
 const WishListCollection = require('model-hook/Model/wishlistCollectionModel');
-const User = require('model-hook/Model/adminModel');
+const User = require('model-hook/Model/userModel');
 const Product = require('model-hook/Model/productModel');
 
 const mongoose = require('mongoose');
@@ -9,13 +9,13 @@ exports.removeWishlistCollection = async(req,res)=>{
     try {
         const {collectionId,addedBy} = req.body
 
-          // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'USER') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser?.data?._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access." });
+        }
+        if (loginUser?.data?.role != 'User') {
+            return res.status(401).send({status:0,message:"Unauthorized access."})
+        }
 
         if(!(collectionId && addedBy)){
             return res.status(403).send({status:0,message:"All fields are required",data:[]})

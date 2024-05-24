@@ -1,5 +1,5 @@
 const Cart = require("model-hook/Model/cartModel");
-const User = require("model-hook/Model/adminModel");
+const User = require("model-hook/Model/userModel");
 const Product = require("model-hook/Model/productModel");
 
 const mongoose = require("mongoose");
@@ -12,7 +12,7 @@ exports.updateCart = async (req, res) => {
         //   if (loginUser?.data?._id != addedBy) {
         //       return res.status(401).send({ message: "Unauthorized access." });
         //   }
-        //   if (loginUser?.data?.role != 'USER') {
+        //   if (loginUser?.data?.role != 'User') {
         //       return res.status(401).send({status:0,message:"Unauthorized access."})
         //   }
 

@@ -1,4 +1,5 @@
 const express = require('express');
+const { jwtValidation } = require("model-hook/middleware/jwtValidation")
 
 const router = express.Router();
 
@@ -10,14 +11,14 @@ const {removeFaqQuestion,removeFaq} = require('../controller/removeFaqs');
 
 
 
-router.post('/createFaq',createFaq);
-router.post('/getAllFaqs',getAllFaqs);
-router.post('/getSingleFaq',getSingleFaq);
+router.post('/createFaq',/*jwtValidation,*/createFaq);
+router.post('/getAllFaqs',/*jwtValidation,*/getAllFaqs);
+router.post('/getSingleFaq',/*jwtValidation,*/getSingleFaq);
 
 
-router.post('/updateFaqQuestion',updateFaqQuestion);
-router.post('/removeFaqQuestion',removeFaqQuestion);
-router.post('/removeFaq',removeFaq);
+router.post('/updateFaqQuestion',/*jwtValidation,*/updateFaqQuestion);
+router.post('/removeFaqQuestion',/*jwtValidation,*/removeFaqQuestion);
+router.post('/removeFaq',/*jwtValidation,*/removeFaq);
 
 
 

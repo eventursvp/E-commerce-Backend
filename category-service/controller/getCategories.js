@@ -1,6 +1,6 @@
 const Category = require("model-hook/Model/categoriesModel");
 const Admin = require("model-hook/Model/adminModel");
-const User = require("model-hook/Model/adminModel");
+const User = require("model-hook/Model/userModel");
 const mongoose = require("mongoose");
 
 exports.getOneCategory = async (req, res) => {
@@ -23,6 +23,9 @@ exports.getOneCategory = async (req, res) => {
         // const { loginUser } = req;
         // if (loginUser?.data?._id != userId) {
         //     return res.status(401).send({ message: "Unauthorized access." });
+        // }
+        // if (loginUser?.data?.role != 'Admin') {
+        //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 
         const data = await Category.findOne({
@@ -120,6 +123,9 @@ exports.getOneSpecificCategory = async (req, res) => {
         // if (loginUser?.data?._id != userId) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
+        // if (loginUser?.data?.role != 'Admin') {
+        //     return res.status(401).send({status:0,message:"Unauthorized access."})
+        // }
 
         const data = await Category.findOne({
             _id: specificCategoryId,
@@ -205,6 +211,9 @@ exports.getOneSubCategory = async (req, res) => {
         // const { loginUser } = req;
         // if (loginUser?.data?._id != userId) {
         //     return res.status(401).send({ message: "Unauthorized access." });
+        // }
+        // if (loginUser?.data?.role != 'Admin') {
+        //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 
         const data = await Category.findOne({
@@ -391,7 +400,6 @@ exports.getAllSubCategoriesName = async (req, res) => {
         });
     }
 };
-
 
 exports.getAllSpecificCategoriesName = async (req, res) => {
     try {

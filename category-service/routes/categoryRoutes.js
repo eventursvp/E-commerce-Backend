@@ -1,4 +1,5 @@
 const express = require("express");
+const { jwtValidation } = require("model-hook/middleware/jwtValidation")
 
 const router = express.Router();
 
@@ -33,35 +34,34 @@ const {
 
 
 //ParentCategory
-router.post("/addCategory", addCategory);
-router.post("/updateCategory", updateCategory);
-router.post("/updateCategoryStatus", updateCategoryStatus);
-router.post("/getOneCategory", getOneCategory);
-router.post("/getAllCategories", getAllCategories);
-router.post("/removeCategory", removeCategory);
-router.post("/getAllCategoriesName", getAllCategoriesName);
+router.post("/addCategory",/*jwtValidation,*/ addCategory);
+router.post("/updateCategory",/*jwtValidation,*/ updateCategory);
+router.post("/updateCategoryStatus", /*jwtValidation,*/updateCategoryStatus);
+router.post("/getOneCategory", /*jwtValidation,*/getOneCategory);
+router.post("/getAllCategories",/*jwtValidation,*/ getAllCategories);
+router.post("/removeCategory", /*jwtValidation,*/removeCategory);
+router.post("/getAllCategoriesName",/*jwtValidation,*/ getAllCategoriesName);
 
 
 
 //ChildCategory
-router.post("/addSubCategory", addSubCategory);
-router.post("/getOneSubCategory", getOneSubCategory);
-router.post("/getAllSubCategories", getAllSubCategories);
-router.post('/removeSubCategory',removeSubCategory);
-router.post('/updateSubCategory',updateSubCategory);
-router.post('/updateSubCategoryStatus',updateSubCategoryStatus);
-router.post('/getAllSubCategoriesName',getAllSubCategoriesName);
+router.post("/addSubCategory", /*jwtValidation,*/addSubCategory);
+router.post("/getOneSubCategory", /*jwtValidation,*/getOneSubCategory);
+router.post("/getAllSubCategories",/*jwtValidation,*/ getAllSubCategories);
+router.post('/removeSubCategory',/*jwtValidation,*/removeSubCategory);
+router.post('/updateSubCategory',/*jwtValidation,*/updateSubCategory);
+router.post('/updateSubCategoryStatus',/*jwtValidation,*/updateSubCategoryStatus);
+router.post('/getAllSubCategoriesName',/*jwtValidation,*/getAllSubCategoriesName);
 
 
 
 //Specific Category
-router.post("/addSpecificCategory", addSpecificCategory);
-router.post("/updateSpecificCategory", updateSpecificCategory);
-router.post("/getOneSpecificCategory", getOneSpecificCategory);
-router.post("/getAllSpecificCategories", getAllSpecificCategories);
-router.post("/removeSpecificCategory", removeSpecificCategory);
-router.post("/getAllSpecificCategoriesName", getAllSpecificCategoriesName);
-
+router.post("/addSpecificCategory", /*jwtValidation,*/addSpecificCategory);
+router.post("/updateSpecificCategory",/*jwtValidation,*/ updateSpecificCategory);
+router.post("/getOneSpecificCategory",/*jwtValidation,*/ getOneSpecificCategory);
+router.post("/getAllSpecificCategories",/*jwtValidation,*/ getAllSpecificCategories);
+router.post("/removeSpecificCategory", /*jwtValidation,*/removeSpecificCategory);
+router.post("/getAllSpecificCategoriesName",/*jwtValidation,*/ getAllSpecificCategoriesName);
 
 
 

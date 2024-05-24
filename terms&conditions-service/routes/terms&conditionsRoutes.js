@@ -1,4 +1,5 @@
 const express = require('express');
+const { jwtValidation } = require("model-hook/middleware/jwtValidation")
 
 const router = express.Router();
 
@@ -10,11 +11,11 @@ const {deleteTermsAndCondtion} = require('../controller/removeT&C');
 
 
 
-router.post('/addTermsAndCondition',addTermsAndCondition);
-router.post('/updateTermsAndCondition',updateTermsAndCondition);
+router.post('/addTermsAndCondition',/*jwtValidation,*/addTermsAndCondition);
+router.post('/updateTermsAndCondition',/*jwtValidation,*/updateTermsAndCondition);
 
-router.post('/getTermsAndCondition',getTermsAndCondition);
-router.post('/deleteTermsAndCondtion',deleteTermsAndCondtion);
+router.post('/getTermsAndCondition',/*jwtValidation,*/getTermsAndCondition);
+router.post('/deleteTermsAndCondtion',/*jwtValidation,*/deleteTermsAndCondtion);
 
 
 

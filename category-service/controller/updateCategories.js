@@ -10,7 +10,7 @@ exports.updateCategory = async (req, res) => {
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-        // if (loginUser?.data?.role != 'ADMIN') {
+        // if (loginUser?.data?.role != 'Admin') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 
@@ -76,7 +76,7 @@ exports.updateCategoryStatus = async (req, res) => {
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-        // if (loginUser?.data?.role != 'ADMIN') {
+        // if (loginUser?.data?.role != 'Admin') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 
@@ -134,6 +134,14 @@ exports.updateCategoryStatus = async (req, res) => {
 exports.updateSpecificCategory = async (req, res) => {
     try {
         const { specificCategoryId, addedBy, name, icon } = req.body;
+
+        // const { loginUser } = req;
+        // if (loginUser?.data?._id != addedBy) {
+        //     return res.status(401).send({ message: "Unauthorized access." });
+        // }
+        // if (loginUser?.data?.role != 'Admin') {
+        //     return res.status(401).send({status:0,message:"Unauthorized access."})
+        // }
 
         if (
             !(
@@ -202,7 +210,7 @@ exports.updateSubCategory = async (req, res) => {
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-        // if (loginUser?.data?.role != 'ADMIN') {
+        // if (loginUser?.data?.role != 'Admin') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 
@@ -272,7 +280,7 @@ exports.updateSubCategoryStatus = async (req, res) => {
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-        // if (loginUser?.data?.role != 'ADMIN') {
+        // if (loginUser?.data?.role != 'Admin') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 

@@ -1,5 +1,5 @@
 const Wishlist = require("model-hook/Model/wishlistModel");
-const User = require("model-hook/Model/adminModel");
+const User = require("model-hook/Model/userModel");
 const Product = require("model-hook/Model/productModel");
 const WishlistCollection = require("model-hook/Model/wishlistCollectionModel");
 const mongoose = require("mongoose");
@@ -8,13 +8,13 @@ exports.createCollection = async (req, res) => {
     try {
         const { addedBy, name } = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'USER') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser?.data?._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access." });
+        }
+        if (loginUser?.data?.role != 'User') {
+            return res.status(401).send({status:0,message:"Unauthorized access."})
+        }
 
         if (!mongoose.Types.ObjectId.isValid(addedBy) && name) {
             return res
@@ -66,13 +66,13 @@ exports.addToCollection = async (req, res) => {
     try {
         const { addedBy, collectionId, productId,variantId } = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'USER') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser?.data?._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access." });
+        }
+        if (loginUser?.data?.role != 'User') {
+            return res.status(401).send({status:0,message:"Unauthorized access."})
+        }
 
         if (
             !(
