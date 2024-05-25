@@ -1,6 +1,6 @@
 const Brand = require("model-hook/Model/brandModel");
 const Admin = require("model-hook/Model/adminModel");
-const User = require("model-hook/Model/adminModel");
+const User = require("model-hook/Model/userModel");
 const mongoose = require("mongoose");
 
 exports.getOneBrand = async (req, res) => {
@@ -11,7 +11,7 @@ exports.getOneBrand = async (req, res) => {
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-        // if (loginUser?.data?.role != 'ADMIN') {
+        // if (loginUser?.data?.role != 'Admin') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
         if (!(brandId && addedBy)) {

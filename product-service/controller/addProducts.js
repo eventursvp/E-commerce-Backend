@@ -54,7 +54,7 @@ exports.addProduct = async (req, res) => {
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-        // if (loginUser?.data?.role != 'ADMIN') {
+        // if (loginUser?.data?.role != 'Admin') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
         if (
@@ -332,11 +332,11 @@ exports.publishProduct = async(req,res)=>{
     try {
         const {addedBy,productId} = req.body
 
-         // const { loginUser } = req;
+        //  const { loginUser } = req;
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-        // if (loginUser?.data?.role != 'ADMIN') {
+        // if (loginUser?.data?.role != 'Admin') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 

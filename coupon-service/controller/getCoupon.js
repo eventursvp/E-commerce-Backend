@@ -8,11 +8,11 @@ exports.getOneCoupon = async(req,res)=>{
     try {
         const {couponId,addedBy} =req.body
 
-         // const { loginUser } = req;
+        //  const { loginUser } = req;
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-         // if (loginUser?.data?.role != 'ADMIN') {
+        //  if (loginUser?.data?.role != 'Admin') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 
@@ -46,11 +46,11 @@ exports.getAllCoupons = async(req,res)=>{
     try {
         const {addedBy} =req.body
 
-         // const { loginUser } = req;
+        //  const { loginUser } = req;
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-         // if (loginUser?.data?.role != 'ADMIN') {
+        //  if (loginUser?.data?.role != 'Admin') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 

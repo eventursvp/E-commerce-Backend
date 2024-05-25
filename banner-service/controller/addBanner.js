@@ -7,7 +7,7 @@ exports.addBanner = async(req,res)=>{
     try {
         const {title,url,image,addedBy} = req.body
 
-         // const { loginUser } = req;
+        //  const { loginUser } = req;
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }

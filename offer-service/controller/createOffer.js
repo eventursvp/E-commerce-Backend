@@ -1,5 +1,5 @@
 const Offer = require('model-hook/Model/offerModel');
-const User = require('model-hook/Model/adminModel');
+const User = require('model-hook/Model/userModel');
 const Product = require('model-hook/Model/productModel');
 
 const mongoose = require('mongoose');
@@ -13,7 +13,7 @@ exports.createOffer = async(req,res)=>{
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-        // if (loginUser?.data?.role != 'ADMIN') {
+        // if (loginUser?.data?.role != 'Admin') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
       

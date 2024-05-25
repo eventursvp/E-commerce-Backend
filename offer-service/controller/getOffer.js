@@ -1,5 +1,5 @@
 const Offer = require('model-hook/Model/offerModel');
-const User = require('model-hook/Model/adminModel');
+const User = require('model-hook/Model/userModel');
 const Product = require('model-hook/Model/productModel');
 
 const mongoose = require('mongoose');
@@ -8,13 +8,14 @@ const mongoose = require('mongoose');
 exports.getOffer = async(req,res)=>{
     try {
 
-          // const { loginUser } = req;
+        
+        const {offerId,addedBy} = req.body;
+        
+        //   const { loginUser } = req;
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-
-        const {offerId,addedBy} = req.body;
-
+        
         if(!(offerId && addedBy)){
             return res.status(403).send({status:0,message:"Invalid request",data:[]})
         }

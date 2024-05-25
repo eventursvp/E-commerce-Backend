@@ -15,6 +15,7 @@ exports.getOneProductRatingReview = async (req, res, next) => {
         // if (loginUser?._id != userId || loginUser?.role !== "User") {
         //     return res.status(403).send({ status: 0, message: "Unauthorized access." })
         // }
+        
         if (!ratingReviewId) {
             return res.status(400).send({ status: 0, message: "Rating Review id is required." })
         }

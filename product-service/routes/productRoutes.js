@@ -1,4 +1,5 @@
 const express = require('express');
+const { jwtValidation } = require("model-hook/middleware/jwtValidation")
 
 const router = express.Router();
 
@@ -8,18 +9,18 @@ const {removeProduct,removeProductFromRecentView} = require('../controller/remov
 const {getOneProduct,getAllProducts,compareProduct,getSimilarProducts,getRecentlyViewedProducts} = require('../controller/getProducts');
 
 
-router.post('/addProduct',addProduct);
-router.post('/updateProduct',updateProduct);
-router.post('/RemoveProduct',removeProduct);
-router.post('/publishProduct',publishProduct);
+router.post('/addProduct',/*jwtValidation,*/addProduct);
+router.post('/updateProduct',/*jwtValidation,*/updateProduct);
+router.post('/RemoveProduct',/*jwtValidation,*/removeProduct);
+router.post('/publishProduct',/*jwtValidation,*/publishProduct);
 
-router.post('/getOneProduct',getOneProduct);
-router.post('/getAllProduct',getAllProducts);
-router.post('/compareProduct',compareProduct);
-router.post('/getSimilarProducts',getSimilarProducts);
-router.post('/getRecentlyViewedProducts',getRecentlyViewedProducts);
+router.post('/getOneProduct',/*jwtValidation,*/getOneProduct);
+router.post('/getAllProduct',/*jwtValidation,*/getAllProducts);
+router.post('/compareProduct',/*jwtValidation,*/compareProduct);
+router.post('/getSimilarProducts',/*jwtValidation,*/getSimilarProducts);
+router.post('/getRecentlyViewedProducts',/*jwtValidation,*/getRecentlyViewedProducts);
 
-router.post('/removeProductFromRecentView',removeProductFromRecentView)
+router.post('/removeProductFromRecentView',/*jwtValidation,*/removeProductFromRecentView)
 
 
 

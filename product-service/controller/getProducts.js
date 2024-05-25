@@ -23,6 +23,10 @@ exports.getOneProduct = async (req, res) => {
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(403).send({ message: "Unauthorized access." });
         // }
+        // if (loginUser?.data?.role != 'Admin') {
+        //     return res.status(401).send({status:0,message:"Unauthorized access."})
+        // }
+
         if (!(productId && addedBy)) {
             return res
                 .status(403)
@@ -527,6 +531,16 @@ exports.getRecentlyViewedProducts = async (req, res) => {
     try {
         const { addedBy } = req.body;
 
+         // const { loginUser } = req;
+        // if (loginUser?.data?._id != userId) {
+        //     return res.status(401).send({ message: "Unauthorized access." });
+        // }
+
+        if(!addedBy){
+            return res
+            .status(403)
+            .send({ status: 0, message: "All fields are required", data: [] });
+        }
         if (!mongoose.Types.ObjectId.isValid(addedBy)) {
             return res
                 .status(400)

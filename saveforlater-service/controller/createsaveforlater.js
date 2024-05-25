@@ -1,6 +1,8 @@
 const SaveForLater = require("model-hook/Model/saveforlaterModel");
 const Product = require("model-hook/Model/productModel");
 const Cart = require("model-hook/Model/cartModel");
+const Wishlist = require("model-hook/Model/wishlistModel");
+const WishListCollection = require("model-hook/Model/wishlistCollectionModel");
 const mongoose = require("mongoose");
 
 exports.addToSaveForLater = async (req, res) => {
@@ -11,7 +13,7 @@ exports.addToSaveForLater = async (req, res) => {
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-        // if (loginUser?.data?.role != 'USER') {
+        // if (loginUser?.data?.role != 'User') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 
@@ -111,7 +113,7 @@ exports.addToList = async (req, res) => {
         // if (loginUser?.data?._id != addedBy) {
         //     return res.status(401).send({ message: "Unauthorized access." });
         // }
-        // if (loginUser?.data?.role != 'USER') {
+        // if (loginUser?.data?.role != 'User') {
         //     return res.status(401).send({status:0,message:"Unauthorized access."})
         // }
 

@@ -1,4 +1,5 @@
 const express = require('express');
+const { jwtValidation } = require("model-hook/middleware/jwtValidation")
 
 const router = express.Router();
 
@@ -10,19 +11,15 @@ const {removeCoupon} = require('../controller/removeCoupon');
 
 
 
-router.post('/createCoupon',createCoupon);
-router.post('/getOneCoupon',getOneCoupon);
-router.post('/getAllCoupons',getAllCoupons);
+router.post('/createCoupon',/*jwtValidation,*/createCoupon);
+router.post('/getOneCoupon',/*jwtValidation,*/getOneCoupon);
+router.post('/getAllCoupons',/*jwtValidation,*/getAllCoupons);
 
 
-router.post('/updateCoupon',updateCoupon);
-router.post('/updateCouponStatus',updateCouponStatus);
+router.post('/updateCoupon',/*jwtValidation,*/updateCoupon);
+router.post('/updateCouponStatus',/*jwtValidation,*/updateCouponStatus);
 
-router.post('/removeCoupon',removeCoupon);
-
-// router.post('/removeFaq',removeFaq);
-
-
+router.post('/removeCoupon',/*jwtValidation,*/removeCoupon);
 
 
 
