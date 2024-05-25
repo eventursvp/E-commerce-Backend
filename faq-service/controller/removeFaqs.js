@@ -7,13 +7,14 @@ exports.removeFaqQuestion = async (req, res) => {
     try {
         const { questionId, addedBy, faqId } = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-         // if (loginUser?.data?.role != 'ADMIN') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin" )) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
         if (!(addedBy && faqId && questionId)) {
             return res
                 .status(409)
@@ -79,13 +80,14 @@ exports.removeFaq = async(req,res)=>{
     try {
         const {  addedBy, faqId } = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin" )) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if (!(addedBy && faqId)) {
             return res

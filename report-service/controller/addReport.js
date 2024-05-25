@@ -9,10 +9,14 @@ exports.addReportOnProductReview = async(req,res)=>{
     try {
         const {productRatingReviewId,reason,addedBy,productId,blogCommentId} = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "User")) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if (
             !(
@@ -76,10 +80,14 @@ exports.addReportOnBlogComment = async(req,res)=>{
     try {
         const {productRatingReviewId,reason,addedBy,productId,blogCommentId} = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "User")) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if (
             !(
@@ -143,10 +151,14 @@ exports.addReportOnProduct = async(req,res)=>{
     try {
         const {productRatingReviewId,reason,addedBy,productId,blogCommentId} = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "User")) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if (
             !(

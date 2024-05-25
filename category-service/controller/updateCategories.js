@@ -6,13 +6,14 @@ exports.updateCategory = async (req, res) => {
     try {
         const { categoryId, addedBy, name, icon } = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin" )) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if (
             !(
@@ -72,13 +73,14 @@ exports.updateCategoryStatus = async (req, res) => {
     try {
         const { categoryId, addedBy } = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin" )) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if (
             !(
@@ -135,13 +137,14 @@ exports.updateSpecificCategory = async (req, res) => {
     try {
         const { specificCategoryId, addedBy, name, icon } = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin" )) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if (
             !(
@@ -206,13 +209,14 @@ exports.updateSubCategory = async (req, res) => {
     try {
         const { subCategoryId, addedBy, name, icon } = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin" )) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if (
             !(
@@ -276,13 +280,14 @@ exports.updateSubCategoryStatus = async (req, res) => {
     try {
         const { subCategoryId, addedBy } = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin" )) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if (
             !(

@@ -19,13 +19,14 @@ exports.updateProduct = async (req, res) => {
             return res.status(403).send({status:0,message:"Invalid request",data:[]})
         }
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }       
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin")) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if (variants && Array.isArray(variants) && variants.length > 0) {
             const variant = variants[0]; 

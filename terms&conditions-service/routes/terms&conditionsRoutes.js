@@ -11,11 +11,11 @@ const {deleteTermsAndCondtion} = require('../controller/removeT&C');
 
 
 
-router.post('/addTermsAndCondition',/*jwtValidation,*/addTermsAndCondition);
-router.post('/updateTermsAndCondition',/*jwtValidation,*/updateTermsAndCondition);
+router.post('/addTermsAndCondition',jwtValidation,addTermsAndCondition);
+router.post('/updateTermsAndCondition',jwtValidation,updateTermsAndCondition);
 
-router.post('/getTermsAndCondition',/*jwtValidation,*/getTermsAndCondition);
-router.post('/deleteTermsAndCondtion',/*jwtValidation,*/deleteTermsAndCondtion);
+router.post('/getTermsAndCondition',jwtValidation,getTermsAndCondition);
+router.post('/deleteTermsAndCondtion',jwtValidation,deleteTermsAndCondtion);
 
 
 

@@ -12,17 +12,17 @@ const {getOneWishlistCollection,getAllWishlistCollection} = require('../controll
 const {removeWishlistCollection} = require('../controller/removeCollection')
 
 
-router.post('/addtoWishlist',/*jwtValidation,*/addtoWishlist);
-router.post('/getAllWishlist',/*jwtValidation,*/getAllWishlist);
-router.post('/removeWishlist',/*jwtValidation,*/removeWishlist);
+router.post('/addtoWishlist',jwtValidation,addtoWishlist);
+router.post('/getAllWishlist',jwtValidation,getAllWishlist);
+router.post('/removeWishlist',jwtValidation,removeWishlist);
 
 
-router.post('/createCollection',/*jwtValidation,*/createCollection);
-router.post('/addToCollection',/*jwtValidation,*/addToCollection);
+router.post('/createCollection',jwtValidation,createCollection);
+router.post('/addToCollection',jwtValidation,addToCollection);
 
-router.post('/getOneCollection',/*jwtValidation,*/getOneWishlistCollection);
-router.post('/getAllCollection',/*jwtValidation,*/getAllWishlistCollection);
-router.post('/removeCollection',/*jwtValidation,*/removeWishlistCollection);
+router.post('/getOneCollection',jwtValidation,getOneWishlistCollection);
+router.post('/getAllCollection',jwtValidation,getAllWishlistCollection);
+router.post('/removeCollection',jwtValidation,removeWishlistCollection);
 
 
 module.exports = router;

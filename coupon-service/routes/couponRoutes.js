@@ -11,15 +11,15 @@ const {removeCoupon} = require('../controller/removeCoupon');
 
 
 
-router.post('/createCoupon',/*jwtValidation,*/createCoupon);
-router.post('/getOneCoupon',/*jwtValidation,*/getOneCoupon);
-router.post('/getAllCoupons',/*jwtValidation,*/getAllCoupons);
+router.post('/createCoupon',jwtValidation,createCoupon);
+router.post('/getOneCoupon',jwtValidation,getOneCoupon);
+router.post('/getAllCoupons',jwtValidation,getAllCoupons);
 
 
-router.post('/updateCoupon',/*jwtValidation,*/updateCoupon);
-router.post('/updateCouponStatus',/*jwtValidation,*/updateCouponStatus);
+router.post('/updateCoupon',jwtValidation,updateCoupon);
+router.post('/updateCouponStatus',jwtValidation,updateCouponStatus);
 
-router.post('/removeCoupon',/*jwtValidation,*/removeCoupon);
+router.post('/removeCoupon',jwtValidation,removeCoupon);
 
 
 

@@ -11,13 +11,13 @@ const {removeBanner} = require('../controller/removeBanner');
 
 
 
-router.post('/addBanner',/*jwtValidation,*/addBanner);
-router.post('/getOneBanner',/*jwtValidation,*/getOneBanner);
-router.post('/getAllBanners',/*jwtValidation,*/getAllBanners);
+router.post('/addBanner',jwtValidation,addBanner);
+router.post('/getOneBanner',jwtValidation,getOneBanner);
+router.post('/getAllBanners',jwtValidation,getAllBanners);
 
 
-router.post('/updateBanner',/*jwtValidation,*/updateBanner);
-router.post('/removeBanner',/*jwtValidation,*/removeBanner);
+router.post('/updateBanner',jwtValidation,updateBanner);
+router.post('/removeBanner',jwtValidation,removeBanner);
 
 
 

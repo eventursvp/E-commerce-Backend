@@ -20,13 +20,14 @@ exports.getOneCategory = async (req, res) => {
             });
         }
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != userId) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != userId) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin" )) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         const data = await Category.findOne({
             _id: categoryId,
@@ -68,10 +69,10 @@ exports.getAllCategories = async (req, res) => {
                 data: [],
             });
         }
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
 
         const data = await Category.find({
             active: true,
@@ -119,13 +120,14 @@ exports.getOneSpecificCategory = async (req, res) => {
                 data: [],
             });
         }
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != userId) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin" )) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         const data = await Category.findOne({
             _id: specificCategoryId,
@@ -169,10 +171,10 @@ exports.getAllSpecificCategories = async (req, res) => {
                 data: [],
             });
         }
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
 
         const data = await Category.find({
             active: true,
@@ -208,13 +210,14 @@ exports.getOneSubCategory = async (req, res) => {
     try {
         const { userId, subCategoryId } = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != userId) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin" )) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         const data = await Category.findOne({
             _id: subCategoryId,
@@ -250,10 +253,10 @@ exports.getOneSubCategory = async (req, res) => {
 exports.getAllSubCategories = async (req, res) => {
     try {
         const { addedBy } = req.body;
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
 
         const data = await Category.find({
             active: true,
@@ -289,10 +292,10 @@ exports.getAllCategoriesName = async (req, res) => {
     try {
         const { addedBy } = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
 
         if (!mongoose.Types.ObjectId.isValid(addedBy)) {
             return res
@@ -338,10 +341,10 @@ exports.getAllSubCategoriesName = async (req, res) => {
     try {
         const { addedBy, categoryId } = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
 
         if (
             !(
@@ -405,11 +408,10 @@ exports.getAllSpecificCategoriesName = async (req, res) => {
     try {
         const { addedBy, categoryId ,subCategoryId} = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
         if (
             !(
                 mongoose.Types.ObjectId.isValid(addedBy) &&

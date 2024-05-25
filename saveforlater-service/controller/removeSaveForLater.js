@@ -8,11 +8,12 @@ exports.removeSaveForLater = async (req, res) => {
         const { addedBy, saveForLaterId } = req.body;
 
         const { loginUser } = req;
-        if (loginUser?.data?._id != addedBy) {
-            return res.status(401).send({ message: "Unauthorized access." });
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
         }
-        if (loginUser?.data?.role != 'User') {
-            return res.status(401).send({status:0,message:"Unauthorized access."})
+
+        if (!(loginUser?.role === "User")) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
         }
 
         if (
