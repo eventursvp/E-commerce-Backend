@@ -34,8 +34,8 @@ exports.createFaq = async(req,res)=>{
             return res.status(400).json({ message: 'Each FAQ must have both question and answer fields' });
         }
 
-        const exit = await Faq.findOne({  name: name, isDeleted: false});
-        if (exit) {
+        const exist = await Faq.findOne({  name: name, isDeleted: false});
+        if (exist) {
             return res.status(409).send({status:0,message:"Record already exist",data:[]})
         }
 
