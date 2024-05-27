@@ -19,7 +19,7 @@ exports.logOutUser = async (req, res, next) => {
         if (!user) {
             return res.status(404).send({ status: 0, message: "User not logout. Please try again." })
         }
-        await createApplicationLog("Auth", "log out user", [], [], loginUser?._id)
+        await createApplicationLog("Auth", "log out user", {}, {}, loginUser?._id)
         return res.status(200).send({ status: 1, message: "User logout successfully." })
     } catch (error) {
         console.log('error =>', error);

@@ -44,16 +44,16 @@ exports.updateUserProfile = async (req, res, next) => {
         await createApplicationLog(
             "Auth",
             "profile updated",
-            [{
+            {
                 firstName: loginUser?.firstName,
                 lastName: loginUser?.lastName,
                 gender: loginUser?.gender,
-            }],
-            [{
+            },
+            {
                 firstName: updateUser?.firstName,
                 lastName: updateUser?.lastName,
                 gender: updateUser?.gender,
-            }],
+            },
             loginUser?._id)
         return res.status(201).send({ status: 1, message: "User data updated.", data: updateUser })
 

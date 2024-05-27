@@ -8,7 +8,7 @@ exports.forgetPassword = async (req, res, next) => {
     try {
         const { email } = req.body
         // const host_url = req.get("Origin");
-        const host_url = "http://192.168.1.8:8001";
+        const host_url = "http://192.168.1.16:8001";
 
         if (!email) {
             return res.status(400).send({ status: 0, message: "Email is required" });
@@ -25,7 +25,7 @@ exports.forgetPassword = async (req, res, next) => {
         } else if (user) {
             const token = jwt.sign({ email }, process.env.JWT_TOKEN, { expiresIn: "2h", });
             await this.sendForgetPasswordEmail(email, host_url, token)
-            await createApplicationLog("Auth", "forget password", [], [], user?._id)
+            await createApplicationLog("Auth", "forget password", {}, {}, user?._id)
             return res.status(200).send({ status: 1, message: 'Password reset link sent successfully.' });
         } else {
             return res.status(404).send({ status: 0, data: "User not found with given email." })

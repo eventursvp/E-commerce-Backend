@@ -5,8 +5,8 @@ exports.createApplicationLog = async (module, activityName, preValue, nextValue,
         const createApplicationLog = await ApplicationLog.create({
             module: module || "",
             activityName: activityName || "",
-            preValue: preValue || [],
-            nextValue: nextValue || [],
+            preValue: preValue || {},
+            nextValue: nextValue || {},
             userId: userId || ""
         })
         if (createApplicationLog) {

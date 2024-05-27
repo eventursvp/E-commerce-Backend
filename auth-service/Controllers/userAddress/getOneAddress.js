@@ -24,7 +24,7 @@ exports.getOneAddress = async (req, res, next) => {
 
         const addressData = await UserAddress.findOne({ userId: userId, _id: addressId })
         if (addressData) {
-            await createApplicationLog("Auth", "get one address", [], [], loginUser?._id)
+            await createApplicationLog("Auth", "get one address", {}, {}, loginUser?._id)
             return res.status(200).send({ status: 1, message: "Address founded.", data: addressData })
         }
         return res.status(404).send({ status: 0, message: "Address not found with given id" })

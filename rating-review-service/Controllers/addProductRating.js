@@ -3,7 +3,6 @@ const ProductRatingReview = require("model-hook/Model/productRatingReviewModel")
 const Order = require("model-hook/Model/orderModel")
 const Product = require("model-hook/Model/productModel")
 const { constants } = require("model-hook/common_function/constants")
-const { createApplicationLog } = require("model-hook/common_function/createLog")
 
 exports.addProductRating = async (req, res, next) => {
     try {

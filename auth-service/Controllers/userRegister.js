@@ -72,7 +72,7 @@ exports.registerUser = async (req, res, next) => {
         }
         const token = jwt.sign({ email: email.toLowerCase() }, process.env.JWT_TOKEN)
         await this.sendVerificationEmail(email.toLowerCase(), host_url, token, firstName, lastName)
-        await createApplicationLog("Auth", "user registered", [], [], result?._id)
+        await createApplicationLog("Auth", "user registered", {}, {}, result?._id)
         return res.status(200).send({ status: 1, message: "A verification email has been sent to your email.", token })
     } catch (error) {
         console.log('error =>', error);

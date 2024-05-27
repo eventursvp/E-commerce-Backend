@@ -19,7 +19,7 @@ exports.userProfile = async (req, res, next) => {
         if (!user) {
             return res.status(404).send({ status: 0, message: "Empty set." })
         }
-        await createApplicationLog("Auth", "user profile", [], [], loginUser?._id)
+        await createApplicationLog("Auth", "user profile", {}, {}, loginUser?._id)
         return res.status(200).send({ status: 1, message: "User found.", data: user })
     } catch (error) {
         console.log('error =>', error);

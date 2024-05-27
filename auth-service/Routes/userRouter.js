@@ -15,7 +15,7 @@ const { deactiveUser } = require("../Controllers/deactiveUser");
 
 const { enable2FA, sendOtp, verifyOtp, resendOtp } = require("../Controllers/2FA")
 
-const { addAddress } = require("../Controllers/userAddress/addAdress")
+const { addAddress } = require("../Controllers/userAddress/addAddress")
 const { getOneAddress } = require("../Controllers/userAddress/getOneAddress")
 const { getAllAddresses } = require("../Controllers/userAddress/getAllAddresses")
 const { removeAddress } = require("../Controllers/userAddress/removeAddress")

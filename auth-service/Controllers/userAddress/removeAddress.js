@@ -29,7 +29,7 @@ exports.removeAddress = async (req, res, next) => {
 
         const addressData = await UserAddress.findByIdAndRemove({ userId: userId, _id: addressId })
         if (addressData || addressData.deletedCount > 0) {
-            await createApplicationLog("Auth", "address removed", [], [], loginUser?._id)
+            await createApplicationLog("Auth", "address removed", {}, {}, loginUser?._id)
             return res.status(200).send({ status: 1, message: "Address removed.", data: addressData })
         }
         return res.status(500).send({ status: 0, message: "Address not removed, Please try again." })

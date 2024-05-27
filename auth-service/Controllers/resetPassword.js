@@ -31,7 +31,7 @@ exports.resetPassword = async (req, res, next) => {
                 const resetPassword = await Users.findByIdAndUpdate(user?.id, { password: passwordHash }, { new: true });
                 if (resetPassword) {
                     const blockListToken = await BlockListToken.create({ token: token, userId: user._id });
-                    await createApplicationLog("Auth", "reset password", [], [], user?._id)
+                    await createApplicationLog("Auth", "reset password", {}, {}, user?._id)
                     return res.status(201).send({ status: 1, message: 'Password reset successfully' });
                 }
                 return res.status(500).send({ status: 0, message: 'Password not reset please try again' });

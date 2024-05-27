@@ -43,12 +43,12 @@ exports.setDefaultAddress = async (req, res, next) => {
                 await createApplicationLog(
                     "Auth",
                     "default address set",
-                    [{
+                    {
                         defaultAddress: checkAddress?.defaultAddress
-                    }],
-                    [{
+                    },
+                    {
                         defaultAddress: setDefaultAddress?.defaultAddress
-                    }],
+                    },
                     loginUser?._id)
                 return res.status(200).send({ status: 1, message: "Default address set successfully." })
             }
