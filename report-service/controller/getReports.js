@@ -9,13 +9,14 @@ exports.getOneReport = async(req,res)=>{
     try {
         const {reportId,addedBy} = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        //  if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin" )) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if(!(mongoose.Types.ObjectId.isValid(addedBy) && mongoose.Types.ObjectId.isValid(reportId))){
             return res.status(400).send({status:0, message: 'Invalid request',data:[] });
@@ -48,14 +49,14 @@ exports.getAllReport = async(req,res)=>{
     try {
         const {addedBy,reportType } = req.body;
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
 
-        //  if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        if (!(loginUser?.role === "Admin")) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if(!(mongoose.Types.ObjectId.isValid(addedBy))){
             return res.status(400).send({status:0, message: 'Invalid request',data:[] });

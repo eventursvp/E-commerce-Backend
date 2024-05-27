@@ -9,18 +9,18 @@ const {removeProduct,removeProductFromRecentView} = require('../controller/remov
 const {getOneProduct,getAllProducts,compareProduct,getSimilarProducts,getRecentlyViewedProducts} = require('../controller/getProducts');
 
 
-router.post('/addProduct',/*jwtValidation,*/addProduct);
-router.post('/updateProduct',/*jwtValidation,*/updateProduct);
-router.post('/RemoveProduct',/*jwtValidation,*/removeProduct);
-router.post('/publishProduct',/*jwtValidation,*/publishProduct);
+router.post('/addProduct',jwtValidation,addProduct);
+router.post('/updateProduct',jwtValidation,updateProduct);
+router.post('/RemoveProduct',jwtValidation,removeProduct);
+router.post('/publishProduct',jwtValidation,publishProduct);
 
-router.post('/getOneProduct',/*jwtValidation,*/getOneProduct);
-router.post('/getAllProduct',/*jwtValidation,*/getAllProducts);
-router.post('/compareProduct',/*jwtValidation,*/compareProduct);
-router.post('/getSimilarProducts',/*jwtValidation,*/getSimilarProducts);
-router.post('/getRecentlyViewedProducts',/*jwtValidation,*/getRecentlyViewedProducts);
+router.post('/getOneProduct',jwtValidation,getOneProduct);
+router.post('/getAllProduct',jwtValidation,getAllProducts);
+router.post('/compareProduct',jwtValidation,compareProduct);
+router.post('/getSimilarProducts',jwtValidation,getSimilarProducts);
+router.post('/getRecentlyViewedProducts',jwtValidation,getRecentlyViewedProducts);
 
-router.post('/removeProductFromRecentView',/*jwtValidation,*/removeProductFromRecentView)
+router.post('/removeProductFromRecentView',jwtValidation,removeProductFromRecentView)
 
 
 

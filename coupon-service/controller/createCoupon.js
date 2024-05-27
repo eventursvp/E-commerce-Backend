@@ -9,13 +9,14 @@ exports.createCoupon = async(req,res)=>{
         const { title, code, startDate, endDate, productIds, discountType, discountValue, maxUses, addedBy } = req.body;
 
          
-        //  const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        //  if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin")) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if (!(addedBy && title && code && startDate && endDate && productIds && discountType && discountValue && maxUses )) {
             return res

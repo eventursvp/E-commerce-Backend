@@ -9,11 +9,11 @@ const {removeSaveForLater} = require('../controller/removeSaveForLater');
 
 
 
-router.post('/addToSaveForLater',/*jwtValidation,*/addToSaveForLater);
-router.post('/addToList',/*jwtValidation,*/addToList);
+router.post('/addToSaveForLater',jwtValidation,addToSaveForLater);
+router.post('/addToList',jwtValidation,addToList);
 
-router.post('/getAllSaveForLater',/*jwtValidation,*/getAllSaveForLater);
-router.post('/removeSaveForLater',/*jwtValidation,*/removeSaveForLater);
+router.post('/getAllSaveForLater',jwtValidation,getAllSaveForLater);
+router.post('/removeSaveForLater',jwtValidation,removeSaveForLater);
 
 
 

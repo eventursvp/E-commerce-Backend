@@ -5,13 +5,10 @@ exports.addGift = async(req,res)=>{
     try {
         const {message,from,recipientsEmail,deliveryAddress,giftBafBox,emailOnGiftMessage,addedBy} = req.body
 
-        //  const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'ADMIN') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
 
         if(!(message && from && recipientsEmail && deliveryAddress && addedBy)){
             return res.status(403).send({status:0,message:"All fields are required",data:[]})

@@ -8,7 +8,7 @@ const {addGift} = require('../controller/addGift');
 
 
 
-router.post('/addGift',/*jwtValidation,*/addGift);
+router.post('/addGift',jwtValidation,addGift);
 
 
 

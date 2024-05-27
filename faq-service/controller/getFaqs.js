@@ -6,10 +6,10 @@ exports.getAllFaqs = async(req,res)=>{
     try {
         const{addedBy} = req.body
 
-        //   const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
 
 
         if(!addedBy){
@@ -54,13 +54,14 @@ exports.getSingleFaq = async(req,res) => {
     try {
         const{addedBy,faqId} = req.body
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin" )) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
       if(!(addedBy && faqId)){
         return res.status(409).send({status:0,message:"All fields are required"})

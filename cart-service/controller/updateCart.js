@@ -8,13 +8,14 @@ exports.updateCart = async (req, res) => {
     try {
         const { cartId, quantity, addedBy } = req.body;
 
-        //   const { loginUser } = req;
-        //   if (loginUser?.data?._id != addedBy) {
-        //       return res.status(401).send({ message: "Unauthorized access." });
-        //   }
-        //   if (loginUser?.data?.role != 'User') {
-        //       return res.status(401).send({status:0,message:"Unauthorized access."})
-        //   }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "User" )) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if (!(cartId && quantity && addedBy)) {
             return res.status(403).send({

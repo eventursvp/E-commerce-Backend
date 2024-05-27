@@ -50,13 +50,14 @@ exports.addProduct = async (req, res) => {
             });
         }
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin")) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
         if (
             !(
                 name &&
@@ -332,13 +333,14 @@ exports.publishProduct = async(req,res)=>{
     try {
         const {addedBy,productId} = req.body
 
-        //  const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
-        // if (loginUser?.data?.role != 'Admin') {
-        //     return res.status(401).send({status:0,message:"Unauthorized access."})
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "Admin")) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         if(!(addedBy && productId)){
             return res.status(403).send({status:0,message:"All fields are required",data:[]})

@@ -11,13 +11,13 @@ const {removeBrand} = require('../controller/removeBrand');
 
 
 
-router.post('/addBrand',/*jwtValidation,*/addBrand);
-router.post('/getOneBrand',/*jwtValidation,*/getOneBrand);
-router.post('/getAllBrands',/*jwtValidation,*/getAllBrands);
+router.post('/addBrand',jwtValidation,addBrand);
+router.post('/getOneBrand',jwtValidation,getOneBrand);
+router.post('/getAllBrands',jwtValidation,getAllBrands);
 
 
-router.post('/updateBrand',/*jwtValidation,*/updateBrand);
-router.post('/removeBrand',/*jwtValidation,*/removeBrand);
+router.post('/updateBrand',jwtValidation,updateBrand);
+router.post('/removeBrand',jwtValidation,removeBrand);
 
 
 

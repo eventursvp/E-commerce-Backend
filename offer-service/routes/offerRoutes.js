@@ -8,9 +8,9 @@ const {getOffer,getAllOffers} = require('../controller/getOffer');
 
 
 
-router.post('/createOffer',/*jwtValidation,*/createOffer);
-router.post('/getOffer',/*jwtValidation,*/getOffer);
-router.post('/getAllOffers',/*jwtValidation,*/getAllOffers);
+router.post('/createOffer',jwtValidation,createOffer);
+router.post('/getOffer',jwtValidation,getOffer);
+router.post('/getAllOffers',jwtValidation,getAllOffers);
 
 
 

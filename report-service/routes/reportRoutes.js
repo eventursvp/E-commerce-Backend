@@ -10,14 +10,14 @@ const {getOneReport,getAllReport} = require('../controller/getReports');
 const {removeReport} =require("../controller/removeReport")
 
 
-router.post('/addReportOnProductReview',/*jwtValidation,*/addReportOnProductReview);
-router.post('/addReportOnBlogComment',/*jwtValidation,*/addReportOnBlogComment);
-router.post('/addReportOnProduct',/*jwtValidation,*/addReportOnProduct);
+router.post('/addReportOnProductReview',jwtValidation,addReportOnProductReview);
+router.post('/addReportOnBlogComment',jwtValidation,addReportOnBlogComment);
+router.post('/addReportOnProduct',jwtValidation,addReportOnProduct);
 
-router.post('/getOneReport',/*jwtValidation,*/getOneReport);
-router.post('/getAllReport',/*jwtValidation,*/getAllReport);
+router.post('/getOneReport',jwtValidation,getOneReport);
+router.post('/getAllReport',jwtValidation,getAllReport);
 
-router.post('/removeReport',/*jwtValidation,*/removeReport);
+router.post('/removeReport',jwtValidation,removeReport);
 
 
 

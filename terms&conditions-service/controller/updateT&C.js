@@ -6,12 +6,13 @@ exports.updateTermsAndCondition = async(req,res)=>{
     try {
         const{title,description,addedBy,termsAndConditionId} = req.body;
 
-           const { loginUser } = req;
-        if (loginUser?.data?._id != addedBy) {
-            return res.status(401).send({ message: "Unauthorized access." });
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
         }
-         if (loginUser?.data?.role != 'Admin') {
-            return res.status(401).send({status:0,message:"Unauthorized access."})
+
+        if (!(loginUser?.role === "Admin")) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
         }
 
         if(!(mongoose.Types.ObjectId.isValid(addedBy) && mongoose.Types.ObjectId.isValid(termsAndConditionId))){

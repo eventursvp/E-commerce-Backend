@@ -11,14 +11,14 @@ const {removeFaqQuestion,removeFaq} = require('../controller/removeFaqs');
 
 
 
-router.post('/createFaq',/*jwtValidation,*/createFaq);
-router.post('/getAllFaqs',/*jwtValidation,*/getAllFaqs);
-router.post('/getSingleFaq',/*jwtValidation,*/getSingleFaq);
+router.post('/createFaq',jwtValidation,createFaq);
+router.post('/getAllFaqs',jwtValidation,getAllFaqs);
+router.post('/getSingleFaq',jwtValidation,getSingleFaq);
 
 
-router.post('/updateFaqQuestion',/*jwtValidation,*/updateFaqQuestion);
-router.post('/removeFaqQuestion',/*jwtValidation,*/removeFaqQuestion);
-router.post('/removeFaq',/*jwtValidation,*/removeFaq);
+router.post('/updateFaqQuestion',jwtValidation,updateFaqQuestion);
+router.post('/removeFaqQuestion',jwtValidation,removeFaqQuestion);
+router.post('/removeFaq',jwtValidation,removeFaq);
 
 
 

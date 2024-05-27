@@ -43,10 +43,14 @@ exports.createOrder = async (req, res) => {
             });
         }
 
-        // const { loginUser } = req;
-        // if (loginUser?.data?._id != addedBy) {
-        //     return res.status(401).send({ message: "Unauthorized access." });
-        // }
+        const { loginUser } = req;
+        if (loginUser._id != addedBy) {
+            return res.status(401).send({ message: "Unauthorized access."});
+        }
+
+        if (!(loginUser?.role === "User")) {
+            return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
 
         const variantData = await Product.findOne({
             "variants._id": variantId,

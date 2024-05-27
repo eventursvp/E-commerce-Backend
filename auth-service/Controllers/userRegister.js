@@ -93,13 +93,3 @@ exports.sendVerificationEmail = async (receiver, hostUrl, token, firstName, last
 }
 
 
-exports.vendorRegister = async(req,res)=>{
-    try {
-        const {firstName,lastNameemail,phoneNo,password,gender,gstNo,idProof,pickupAddress,bankDetails} = req.body
-    } catch (error) {
-        console.log('error =>', error);
-        return res.status(500).send({ status: 0, message: "Something went wrong", error })
-    }
-}
-
-

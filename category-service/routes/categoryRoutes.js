@@ -34,34 +34,34 @@ const {
 
 
 //ParentCategory
-router.post("/addCategory",/*jwtValidation,*/ addCategory);
-router.post("/updateCategory",/*jwtValidation,*/ updateCategory);
-router.post("/updateCategoryStatus", /*jwtValidation,*/updateCategoryStatus);
-router.post("/getOneCategory", /*jwtValidation,*/getOneCategory);
-router.post("/getAllCategories",/*jwtValidation,*/ getAllCategories);
-router.post("/removeCategory", /*jwtValidation,*/removeCategory);
-router.post("/getAllCategoriesName",/*jwtValidation,*/ getAllCategoriesName);
+router.post("/addCategory",jwtValidation, addCategory);
+router.post("/updateCategory",jwtValidation, updateCategory);
+router.post("/updateCategoryStatus", jwtValidation,updateCategoryStatus);
+router.post("/getOneCategory", jwtValidation,getOneCategory);
+router.post("/getAllCategories",jwtValidation, getAllCategories);
+router.post("/removeCategory", jwtValidation,removeCategory);
+router.post("/getAllCategoriesName",jwtValidation, getAllCategoriesName);
 
 
 
 //ChildCategory
-router.post("/addSubCategory", /*jwtValidation,*/addSubCategory);
-router.post("/getOneSubCategory", /*jwtValidation,*/getOneSubCategory);
-router.post("/getAllSubCategories",/*jwtValidation,*/ getAllSubCategories);
-router.post('/removeSubCategory',/*jwtValidation,*/removeSubCategory);
-router.post('/updateSubCategory',/*jwtValidation,*/updateSubCategory);
-router.post('/updateSubCategoryStatus',/*jwtValidation,*/updateSubCategoryStatus);
-router.post('/getAllSubCategoriesName',/*jwtValidation,*/getAllSubCategoriesName);
+router.post("/addSubCategory", jwtValidation,addSubCategory);
+router.post("/getOneSubCategory", jwtValidation,getOneSubCategory);
+router.post("/getAllSubCategories",jwtValidation, getAllSubCategories);
+router.post('/removeSubCategory',jwtValidation,removeSubCategory);
+router.post('/updateSubCategory',jwtValidation,updateSubCategory);
+router.post('/updateSubCategoryStatus',jwtValidation,updateSubCategoryStatus);
+router.post('/getAllSubCategoriesName',jwtValidation,getAllSubCategoriesName);
 
 
 
 //Specific Category
-router.post("/addSpecificCategory", /*jwtValidation,*/addSpecificCategory);
-router.post("/updateSpecificCategory",/*jwtValidation,*/ updateSpecificCategory);
-router.post("/getOneSpecificCategory",/*jwtValidation,*/ getOneSpecificCategory);
-router.post("/getAllSpecificCategories",/*jwtValidation,*/ getAllSpecificCategories);
-router.post("/removeSpecificCategory", /*jwtValidation,*/removeSpecificCategory);
-router.post("/getAllSpecificCategoriesName",/*jwtValidation,*/ getAllSpecificCategoriesName);
+router.post("/addSpecificCategory", jwtValidation,addSpecificCategory);
+router.post("/updateSpecificCategory",jwtValidation, updateSpecificCategory);
+router.post("/getOneSpecificCategory",jwtValidation, getOneSpecificCategory);
+router.post("/getAllSpecificCategories",jwtValidation, getAllSpecificCategories);
+router.post("/removeSpecificCategory", jwtValidation,removeSpecificCategory);
+router.post("/getAllSpecificCategoriesName",jwtValidation, getAllSpecificCategoriesName);
 
 
 
