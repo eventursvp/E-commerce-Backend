@@ -20,7 +20,7 @@ exports.verifyEmail = async (req, res, next) => {
                     if (!updateUser) {
                         return res.status(500).send({ status: 0, message: "Email not verified please try again" })
                     }
-                    await createApplicationLog("Auth", "verify email", [], [], user?._id)
+                    await createApplicationLog("Auth", "verify email", {}, {}, user?._id)
                     return res.status(200).send({ status: 1, message: "Email verified successfully" });
                 }
             } else {

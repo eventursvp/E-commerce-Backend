@@ -26,7 +26,7 @@ exports.getAllAddresses = async (req, res, next) => {
                     return 0;
                 }
             });
-            await createApplicationLog("Auth", "get all addresses", [], [], loginUser?._id)
+            await createApplicationLog("Auth", "get all addresses", {}, {}, loginUser?._id)
             return res.status(200).send({ status: 1, message: "Addresses founded.", data: sortedData })
         }
         return res.status(404).send({ status: 0, message: "Empty set." })

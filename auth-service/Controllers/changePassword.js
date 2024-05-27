@@ -54,7 +54,7 @@ exports.changePassword = async (req, res) => {
             if (!result) {
                 return res.status(500).send({ status: 0, message: "Password not changed please try again." })
             }
-            await createApplicationLog("Auth", "change password", [], [], loginUser?._id)
+            await createApplicationLog("Auth", "change password", {}, {}, loginUser?._id)
             return res.status(201).send({ status: 1, message: "Your password changed." })
         }
 

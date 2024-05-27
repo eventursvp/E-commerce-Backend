@@ -47,14 +47,14 @@ exports.loginUser = async (req, res, next) => {
             } else {
                 await UserOtp.create({ userId: user._id, phoneNo: user.phoneNo, otp: otp, expirationTime: Date.now() + 30000 })
             }
-            await createApplicationLog("Auth", "otp send", [], [], alreadyExist._id)
+            await createApplicationLog("Auth", "otp send", {}, {}, alreadyExist._id)
             return res.status(201).send({ status: 1, message: "Otp send to your phone, Please verify.", otp })
 
         }
         const token = jwt.sign({ id: user._id, email: user.email, role: user.role }, process.env.JWT_TOKEN, { expiresIn: "1d" });
         user.isLoggedOut = false
         user.save()
-        await createApplicationLog("Auth", "user login", [], [], user._id)
+        await createApplicationLog("Auth", "user login", {}, {}, user._id)
         return res.status(200).send({ status: 1, message: "Login successfully done", data: user, token: token })
 
     } catch (error) {

@@ -82,7 +82,7 @@ exports.addAddress = async (req, res, next) => {
         if (addAddress) {
             await createApplicationLog("Auth",
                 "address added",
-                [{
+                {
                     fullName: addAddress?.fullName,
                     address: addAddress?.address,
                     area: addAddress?.area,
@@ -92,8 +92,8 @@ exports.addAddress = async (req, res, next) => {
                     state: addAddress?.state,
                     country: addAddress?.country,
                     defaultAddress: addAddress?.defaultAddress,
-                }],
-                [],
+                },
+                {},
                 loginUser?._id)
             return res.status(201).send({ status: 1, message: "Address added.", data: addAddress })
         }

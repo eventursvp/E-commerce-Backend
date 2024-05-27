@@ -30,10 +30,10 @@ exports.enable2FA = async (req, res, next) => {
             await createApplicationLog(
                 "Auth",
                 `2FA ${enable === true ? "Enabled" : "Disabled"}`,
-                [{ is2FAEnabled: loginUser?.is2FAEnabled }],
-                [{ is2FAEnabled: enable2Fa?.is2FAEnabled }],
+                { is2FAEnabled: loginUser?.is2FAEnabled },
+                { is2FAEnabled: enable2Fa?.is2FAEnabled },
                 loginUser?._id)
-            return res.status(201).send({ status: 1, message: "2FA enabled successfully.", data: enable2Fa })
+            return res.status(201).send({ status: 1, message: `2FA ${enable === true ? "Enabled" : "Disabled"} successfully.`, data: enable2Fa })
         } else {
             return res.status(400).send({ status: 0, message: "Please verify your phone number." })
         }
@@ -82,7 +82,7 @@ exports.sendOtp = async (req, res, next) => {
             await UserOtp.create({ userId: userId, phoneNo: phoneNo, otp: otp, expirationTime: Date.now() + 30000 })
         }
         const updateUser = await User.findByIdAndUpdate(userId, { $set: { phoneNo: phoneNo } }, { new: true })
-        await createApplicationLog("Auth", "send otp", [], [], loginUser?._id)
+        await createApplicationLog("Auth", "send otp", {}, {}, loginUser?._id)
         return res.status(201).send({ status: 1, message: "Otp send to your phone, Please verify.", otp })
 
     } catch (error) {
@@ -159,7 +159,7 @@ exports.verifyOtp = async (req, res, next) => {
                 const checkUser = await User.findOne({ phoneNo: phoneNo })
                 const enablePhoneVerified = await User.findByIdAndUpdate(checkUser?._id, { $set: { phoneVerified: true, phoneNo: result?.phoneNo } }, { new: true })
                 const token = jwt.sign({ id: enablePhoneVerified._id, email: enablePhoneVerified.email, role: enablePhoneVerified.role }, process.env.JWT_TOKEN, { expiresIn: "1d" });
-                await createApplicationLog("Auth", "verify otp", [], [], checkUser?._id)
+                await createApplicationLog("Auth", "verify otp", {}, {}, checkUser?._id)
                 return res.status(201).send({ status: 1, message: "Otp verified successfully.", token: token })
             } else {
                 return res.status(400).send({ status: 0, message: "Invalid otp." })

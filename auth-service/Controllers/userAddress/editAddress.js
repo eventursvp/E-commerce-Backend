@@ -91,7 +91,7 @@ exports.editAddress = async (req, res, next) => {
             await createApplicationLog(
                 "Auth",
                 "address edited",
-                [{
+                {
                     fullName: checkAddress.fullName,
                     address: checkAddress.address,
                     area: checkAddress.area,
@@ -101,8 +101,8 @@ exports.editAddress = async (req, res, next) => {
                     state: checkAddress.state,
                     country: checkAddress.country,
                     defaultAddress: checkAddress.defaultAddress,
-                }],
-                [{
+                },
+                {
                     fullName: updateAddress.fullName,
                     address: updateAddress.address,
                     area: updateAddress.area,
@@ -112,7 +112,7 @@ exports.editAddress = async (req, res, next) => {
                     state: updateAddress.state,
                     country: updateAddress.country,
                     defaultAddress: updateAddress.defaultAddress,
-                }],
+                },
                 loginUser?._id)
             return res.status(201).send({ status: 1, message: "Address updated.", data: updateAddress })
         }
