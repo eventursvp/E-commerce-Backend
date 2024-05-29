@@ -24,10 +24,6 @@ exports.getOneProduct = async (req, res) => {
             return res.status(401).send({ message: "Unauthorized access."});
         }
 
-        if (!(loginUser?.role === "Admin")) {
-            return res.status(403).send({ status: 0, message: "Unauthorized access."});
-        }
-
         if (!(productId && addedBy)) {
             return res
                 .status(403)
