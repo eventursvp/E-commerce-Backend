@@ -30,7 +30,7 @@ router.post("/userProfile", jwtValidation, userProfile);
 router.post("/updateUserProfile", jwtValidation, updateUserProfile);
 router.post("/changePassword", jwtValidation, changePassword);
 router.post("/forgetPassword", forgetPassword);
-router.post("/resetPassword", resetPassword);
+router.post("/resetPassword/:token", resetPassword);
 router.post("/logOutUser", jwtValidation, logOutUser);
 router.post("/getAllUser", jwtValidation, getAllUser);
 router.post("/deactiveUser", jwtValidation, deactiveUser);

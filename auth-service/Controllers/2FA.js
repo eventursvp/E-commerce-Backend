@@ -156,11 +156,11 @@ exports.verifyOtp = async (req, res, next) => {
                 return res.status(200).send({ status: 0, message: "Otp is expired." })
             }
             if (result.otp === otp) {
-                const checkUser = await User.findOne({ phoneNo: phoneNo })
+                const checkUser = await User.findOne({ phoneNo: phoneNo }).select("-password ")
                 const enablePhoneVerified = await User.findByIdAndUpdate(checkUser?._id, { $set: { phoneVerified: true, phoneNo: result?.phoneNo } }, { new: true })
                 const token = jwt.sign({ id: enablePhoneVerified._id, email: enablePhoneVerified.email, role: enablePhoneVerified.role }, process.env.JWT_TOKEN, { expiresIn: "1d" });
                 await createApplicationLog("Auth", "verify otp", {}, {}, checkUser?._id)
-                return res.status(201).send({ status: 1, message: "Otp verified successfully.", token: token })
+                return res.status(201).send({ status: 1, message: "Otp verified successfully.", token: token, data: checkUser })
             } else {
                 return res.status(400).send({ status: 0, message: "Invalid otp." })
             }

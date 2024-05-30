@@ -18,7 +18,7 @@ exports.loginUser = async (req, res, next) => {
         const { email, password } = req.body;
         const user = await Users.findOne({ email: email.toLowerCase() });
         if (!user) {
-            return res.status(404).send({ status: 0, message: "User not found. Please register first." })
+            return res.status(400).send({ status: 0, message: "Email / Password is invalid." })
         }
         if (!user?.emailVerified) {
             return res.status(400).send({ status: 0, message: "Please verify your email first." })

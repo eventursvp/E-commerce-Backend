@@ -9,8 +9,8 @@ exports.constants = {
     dateRegex: /^\d{1,2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4}$/,   // format like this = "12 Mar 2024"
     dateMonthYearRegex: /^\d{4}-\d{2}-\d{2}$/,  // format like this = "2024-03-12"
     passwordRegex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,24}$/, // minimum 1 lowerCase, upperCase, specialCharacter, number and minimum lenght 8 and maximum lenght 25
-    ratingRegex: /^(?!.*[a-zA-Z])^(?:0|[1-4](?:\.\d{1,2})?|5(?:\.0{1,2})?)$/
-
+    ratingRegex: /^(?!.*[a-zA-Z])^(?:0|[1-4](?:\.\d{1,2})?|5(?:\.0{1,2})?)$/,
+    numberPlateRegex: /^[A-Z]{2}\d{2}[A-Z]{1,2}\d{4}$/ // GJ05AA0000, GJ05A0001
 }
 
 exports.disposableEmailProviders = [
