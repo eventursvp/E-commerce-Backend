@@ -412,10 +412,13 @@ exports.getAdminOrders = async(req,res)=>{
             {
                 $unwind: { path: "$productData", preserveNullAndEmptyArrays: true },
             },
+            // {
+            //     $match:{"productData.addedBy":new mongoose.Types.ObjectId(addedBy)}
+            // },
             {
                 $lookup: {
-                    from: "users",
-                    let: { "userId": "$addedBy", "addressId": "$addressId" },
+                    from: "User",
+                    let: { "userId": "$addedBy" },
                     pipeline: [
                         {
                             $match: {
@@ -434,15 +437,6 @@ exports.getAdminOrders = async(req,res)=>{
                                 lastName: 1,
                                 email: 1,
                                 mobile: 1,
-                                address: {
-                                    $arrayElemAt: [{
-                                        $filter: {
-                                            input: '$addresses',
-                                            as: 'address',
-                                            cond: { $eq: ['$$address._id', '$$addressId'] }
-                                        }
-                                    }, 0]
-                                },
                             }
                         }
                     ],
@@ -451,6 +445,39 @@ exports.getAdminOrders = async(req,res)=>{
             },
             {
                 $unwind: { path: "$userData", preserveNullAndEmptyArrays: true },
+            },
+            {
+                $lookup: {
+                    from: "UserAddress",
+                    let: { "userId": "$addedBy", "addressId": "$addressId" },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $and: [
+                                        { $eq: ["$userId", "$$userId"] },
+                                        { $eq: ["$_id", "$$addressId"] },
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            $project: {
+                                address: 1,
+                                area: 1,
+                                landMark: 1,
+                                pinCode: 1,
+                                city:1,
+                                state:1,
+                                country:1
+                            }
+                        }
+                    ],
+                    as: "UserAddressData"
+                },
+            },
+            {
+                $unwind: { path: "$UserAddressData", preserveNullAndEmptyArrays: true },
             },
         )
         const data = await Order.aggregate(aggregate);
