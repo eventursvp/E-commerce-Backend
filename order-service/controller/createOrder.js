@@ -5,7 +5,7 @@ const Cart = require("model-hook/Model/cartModel");
 const mongoose = require("mongoose");
 const orderid = require("order-id")("key");
 const Coupon = require("model-hook/Model/userCoupon");
-
+const UserAddress = require("model-hook/Model/userAddressModel")
 
 const formatDate = (date) => {
     const year = date.getFullYear();
@@ -50,6 +50,16 @@ exports.createOrder = async (req, res) => {
 
         if (!(loginUser?.role === "User")) {
             return res.status(403).send({ status: 0, message: "Unauthorized access."});
+        }
+
+        const addressData = await UserAddress.findOne({_id:addressId,userId:addedBy});
+
+        if(!addressData){
+            return res.status(404).send({
+                status: 0,
+                message: "Address not available",
+                data: [],
+            });
         }
 
         const variantData = await Product.findOne({
