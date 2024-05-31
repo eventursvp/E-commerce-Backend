@@ -9,7 +9,7 @@ exports.registerUser = async (req, res, next) => {
     try {
         const { firstName, lastName, gender, password, confirmPassword, email } = req.body
         // const host_url = req.get("Origin");
-        const host_url = "http://192.168.1.8:8001";
+        const host_url = "http://192.168.1.16:5000";
         if (!email) {
             return res.status(400).send({ status: 0, message: "Email is required." })
         }

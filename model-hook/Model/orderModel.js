@@ -3,10 +3,10 @@ let Schema = mongoose.Schema;
 
 let Orders = new Schema(
     {
-        addedBy: { type: Schema.ObjectId, ref: "Users", index: true },
+        addedBy: { type: Schema.ObjectId, ref: "User", index: true },
         orderStatus: {
             type: String,
-            enum: ["UNSHIPPED", "PENDING", "COMPLETED", "CANCELLED", "RETURN","DISPATCHED","DELIVERED"],
+            enum: ["UNSHIPPED", "PENDING", "PACKED", "CANCELLED", "RETURN","DISPATCHED","DELIVERED"],
             default: "PENDING",
         },
         orderNumber: { type: String, unique: true },

@@ -14,7 +14,7 @@ exports.deactiveUser = async (req, res, next) => {
         // if (!user) {
         //     return res.send({ status: 0, message: "User not found." })
         // }
-        // const removeUser = await User.findOneAndRemove({ _id: userId })
+        // const removeUser = await User.findOneAndDelete({ _id: userId })
 
         // if (!removeUser && !removePhoneLogin) {
         //     return res.send({ status: 0, message: "User not deactivate" })

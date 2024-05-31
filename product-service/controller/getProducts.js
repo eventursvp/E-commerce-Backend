@@ -102,7 +102,7 @@ exports.getAllProducts = async (req, res) => {
         }
 
         const { loginUser } = req;
-        if (loginUser._id != addedBy) {
+        if (loginUser._id != userId) {
             return res.status(401).send({ message: "Unauthorized access."});
         }
         if (!userId) {
