@@ -3,6 +3,7 @@ const ProductRatingReview = require("model-hook/Model/productRatingReviewModel")
 const BlogComment = require("model-hook/Model/blogCommentsModel");
 const Product = require("model-hook/Model/productModel")
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 
 exports.removeReport = async(req,res)=>{
@@ -31,6 +32,8 @@ exports.removeReport = async(req,res)=>{
         if(!data){
             return res.status(404).send({status:0,message:"Record not found",data:[]});
         }
+
+        await createApplicationLog("Report", "remove report", {}, {}, addedBy);
 
         return res.status(200).send({status:1,message:"Record deleted successfully!"});
 

@@ -1,6 +1,8 @@
 const Category = require("model-hook/Model/categoriesModel");
 const Admin = require("model-hook/Model/adminModel");
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
+
 
 exports.updateCategory = async (req, res) => {
     try {
@@ -53,6 +55,8 @@ exports.updateCategory = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("Category", "update category", {}, {}, addedBy);
 
         return res.status(200).send({
             status: 1,
@@ -117,6 +121,9 @@ exports.updateCategoryStatus = async (req, res) => {
         category.active = !category.active;
 
         await category.save();
+
+        await createApplicationLog("Category", "update category status", {}, {}, addedBy);
+
 
         return res.status(200).send({
             status: 1,
@@ -187,6 +194,9 @@ exports.updateSpecificCategory = async (req, res) => {
                 .status(404)
                 .send({ status: 0, message: "Record not found", data: [] });
         }
+
+        await createApplicationLog("Category", "update specific category", {}, {}, addedBy);
+
 
         return res
             .status(200)
@@ -261,6 +271,8 @@ exports.updateSubCategory = async (req, res) => {
             });
         }
 
+        await createApplicationLog("Category", "update sub category", {}, {}, addedBy);
+
         return res.status(200).send({
             status: 1,
             message: "Record updated successfully!",
@@ -326,6 +338,9 @@ exports.updateSubCategoryStatus = async (req, res) => {
         subCategory.active = !subCategory.active;
 
         await subCategory.save();
+
+        await createApplicationLog("Category", "update sub category status", {}, {}, addedBy);
+
 
         return res.status(200).send({
             status: 1,

@@ -25,4 +25,6 @@ router.post('/getAllCollection',jwtValidation,getAllWishlistCollection);
 router.post('/removeCollection',jwtValidation,removeWishlistCollection);
 
 
+
+
 module.exports = router;

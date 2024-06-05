@@ -1,6 +1,8 @@
 const Category = require("model-hook/Model/categoriesModel");
 const Admin = require("model-hook/Model/adminModel");
 const mongoose  = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
+
 
 
 exports.removeCategory = async(req,res) =>{
@@ -46,6 +48,9 @@ exports.removeCategory = async(req,res) =>{
                 messae: "Record deleted successfully!",
             });
         }
+
+        await createApplicationLog("Category", "remove category", {}, {}, addedBy);
+
         return res.status(403).send({
             status: 1,
             messae: "Error in  deleting record",
@@ -109,6 +114,9 @@ exports.removeSubCategory = async(req,res) =>{
                 messae: "Record deleted successfully!",
             });
         }
+
+        await createApplicationLog("Category", "remove sub category", {}, {}, addedBy);
+
         return res.status(403).send({
             status: 1,
             messae: "Error in  deleting record",
@@ -170,6 +178,9 @@ exports.removeSpecificCategory = async(req,res) =>{
                 messae: "Record deleted successfully!",
             });
         }
+
+        await createApplicationLog("Category", "remove specific category", {}, {}, addedBy);
+
         return res.status(403).send({
             status: 1,
             messae: "Error in  deleting record",

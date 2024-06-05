@@ -1,6 +1,8 @@
 const Faq = require("model-hook/Model/faqModel");
 const Admin = require("model-hook/Model/adminModel");
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
+
 
 exports.createFaq = async(req,res)=>{
     try {
@@ -50,6 +52,8 @@ exports.createFaq = async(req,res)=>{
         if(!data){
             return res.status(404).send({status:0,message:"Error in creating faq",data:[]});
         }
+
+        await createApplicationLog("Faq", "create faq", {}, {}, addedBy);
 
         return res.status(201).send({status:1,message:"Record added successfully!",data:data})
 

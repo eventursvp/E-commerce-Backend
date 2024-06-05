@@ -1,6 +1,8 @@
 const Cart = require("model-hook/Model/cartModel");
 const User = require("model-hook/Model/userModel");
 const Product = require("model-hook/Model/productModel");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
+
 
 const mongoose = require("mongoose");
 
@@ -51,6 +53,9 @@ exports.updateCart = async (req, res) => {
         if (!data) {
             return res.status(404).send({ status: 0, message: "Record not found" });
         }
+
+        await createApplicationLog("Cart", "user update cart", {}, {}, addedBy);
+        
 
         return res.status(201).send({
             status: 1,

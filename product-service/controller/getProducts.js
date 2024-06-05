@@ -2,6 +2,7 @@ const Product = require("model-hook/Model/productModel");
 const Admin = require("model-hook/Model/adminModel");
 const RecentViewedProducts = require("model-hook/Model/recentViewedProduct");
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 exports.getOneProduct = async (req, res) => {
     try {
@@ -59,6 +60,8 @@ exports.getOneProduct = async (req, res) => {
         }
 
         // }
+
+        await createApplicationLog("Product", "get one product", {}, {}, addedBy);
 
         return res.status(200).send({
             status: 1,
@@ -405,6 +408,8 @@ exports.getAllProducts = async (req, res) => {
             });
         }
 
+        await createApplicationLog("Product", "get all product", {}, {}, addedBy);
+
         return res.status(200).send({
             status: 1,
             message: "Record fetched successful",
@@ -448,6 +453,8 @@ exports.compareProduct = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("Product", "compare product", {}, {}, addedBy);
 
         return res.status(200).send({
             status: 1,
@@ -508,6 +515,8 @@ exports.getSimilarProducts = async (req, res) => {
                 .status(404)
                 .send({ status: 0, message: "Record not found 2", data: [] });
         }
+
+        await createApplicationLog("Product", "get similar product", {}, {}, addedBy);
 
         return res.status(200).send({
             status: 1,
@@ -601,6 +610,8 @@ exports.getRecentlyViewedProducts = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("Product", "get recent viewed products", {}, {}, addedBy);
 
         return res.status(200).send({
             status: 1,

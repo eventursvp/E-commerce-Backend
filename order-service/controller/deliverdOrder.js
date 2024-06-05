@@ -38,6 +38,7 @@ exports.deliverdOrder = async(req,res)=>{
         order.orderStatus = 'DELIVERED';
         await order.save();
         await createNotification(addedBy,"Order","OrderDelivered","Order deliverd","Order deliverd Successfully",order._id);
+        await createApplicationLog("Order", "order deliverd", {}, {}, addedBy);
 
         return res.status(200).json({ status: 1, message: 'Order deliverd successfully'});
     } catch (error) {

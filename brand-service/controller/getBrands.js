@@ -2,6 +2,8 @@ const Brand = require("model-hook/Model/brandModel");
 const Admin = require("model-hook/Model/adminModel");
 const User = require("model-hook/Model/userModel");
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
+
 
 exports.getOneBrand = async (req, res) => {
     try {
@@ -45,6 +47,8 @@ exports.getOneBrand = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("Auth", "brand fetched", {}, {}, addedBy);
 
         return res.status(201).send({
             status: 1,
@@ -97,6 +101,9 @@ exports.getAllBrands = async (req, res) => {
             });
         }
 
+        await createApplicationLog("Brand", "fetched all brands", {}, {}, addedBy);
+
+        
         return res.status(200).send({
             status: 1,
             message: "Record fetched successfull",

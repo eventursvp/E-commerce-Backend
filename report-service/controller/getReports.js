@@ -3,6 +3,7 @@ const ProductRatingReview = require("model-hook/Model/productRatingReviewModel")
 const BlogComment = require("model-hook/Model/blogCommentsModel");
 const Product = require("model-hook/Model/productModel")
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 
 exports.getOneReport = async(req,res)=>{
@@ -31,6 +32,8 @@ exports.getOneReport = async(req,res)=>{
         if(!data){
             return res.status(404).send({status:0,message:"Record not found",data:[]});
         }
+
+        await createApplicationLog("Report", "get one report", {}, {}, addedBy);
 
         return res.status(200).send({status:1,message:"Record fetched successfully!",data:data});
 
@@ -80,6 +83,8 @@ exports.getAllReport = async(req,res)=>{
         if(!data.length){
             return res.status(404).send({status:0,message:"Record not found",data:[]});
         }
+
+        await createApplicationLog("Report", "get all reports", {}, {}, addedBy);
 
         return res.status(200).send({status:1,message:"Record fetched successfully!",data:data});
 

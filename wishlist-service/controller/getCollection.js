@@ -1,6 +1,7 @@
 const WishlistCollection = require("model-hook/Model/wishlistCollectionModel");
 const User = require("model-hook/Model/userModel");
 const Product = require("model-hook/Model/productModel");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 const mongoose = require("mongoose");
 
@@ -142,6 +143,8 @@ exports.getOneWishlistCollection = async (req, res) => {
                 .send({ status: 0, message: "Record not found", data: [] });
         }
 
+        await createApplicationLog("WishlistCollection", "get one wishlist collection", {}, {}, addedBy);
+
         return res.status(200).send({
             status: 1,
             message: "Record fetched Successfull!",
@@ -187,6 +190,9 @@ exports.getAllWishlistCollection = async (req, res) => {
         const collectionData = data.map((data) => {
             return { _id: data._id, name: data.name };
         });
+
+        await createApplicationLog("WishlistCollection", "get all wishlist collection", {}, {}, addedBy);
+
         return res.status(200).send({
             status: 1,
             message: "Record fetched Successfull!",

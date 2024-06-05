@@ -1,6 +1,7 @@
 const Banner = require("model-hook/Model/bannerModel");
 const Admin = require("model-hook/Model/adminModel");
 const mongoose  = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 
 exports.removeBanner = async(req,res) =>{
@@ -47,6 +48,9 @@ exports.removeBanner = async(req,res) =>{
                 messae: "Record deleted successfully!",
             });
         }
+
+        await createApplicationLog("Banner", "remove banner", {}, {}, addedBy);
+
         return res.status(404).send({
             status: 1,
             messae: "Error in  deleting record",

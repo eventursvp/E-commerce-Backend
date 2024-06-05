@@ -2,6 +2,8 @@ const Banner = require("model-hook/Model/bannerModel");
 const Admin = require("model-hook/Model/adminModel");
 const User = require("model-hook/Model/adminModel");
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
+
 
 exports.getOneBanner = async (req, res) => {
     try {
@@ -49,6 +51,9 @@ exports.getOneBanner = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("Auth", "get one banner", {}, {}, addedBy);
+
 
         return res.status(200).send({
             status: 1,
@@ -100,6 +105,8 @@ exports.getAllBanners = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("Banner", "get all banner", {}, {}, addedBy);
 
         return res.status(200).send({
             status: 1,

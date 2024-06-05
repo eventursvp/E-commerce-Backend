@@ -1,6 +1,7 @@
 const TermsAndCondition = require("model-hook/Model/terms&Conditions");
 const Admin = require("model-hook/Model/adminModel");
 const mongoose  = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 
 exports.deleteTermsAndCondtion = async(req,res) =>{
@@ -47,6 +48,9 @@ exports.deleteTermsAndCondtion = async(req,res) =>{
                 messae: "Record deleted successfully!",
             });
         }
+
+        await createApplicationLog("TermsAndCondition", "remove terms and condition", {}, {}, addedBy);
+
         return res.status(404).send({
             status: 1,
             messae: "Error in  deleting record",

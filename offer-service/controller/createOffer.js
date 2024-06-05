@@ -1,6 +1,7 @@
 const Offer = require('model-hook/Model/offerModel');
 const User = require('model-hook/Model/userModel');
 const Product = require('model-hook/Model/productModel');
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 const mongoose = require('mongoose');
 
@@ -51,6 +52,8 @@ exports.createOffer = async(req,res)=>{
                 data: [],
             });
         }
+
+        await createApplicationLog("Offer", "create offer", {}, {}, addedBy);
 
         return res.status(201).send({
             status: 1,

@@ -1,6 +1,8 @@
 const Category = require("model-hook/Model/categoriesModel");
 const Admin = require("model-hook/Model/adminModel");
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
+
 
 exports.addCategory = async (req, res) => {
     try {
@@ -44,6 +46,8 @@ exports.addCategory = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("Category", "add category", {}, {}, addedBy);
 
         return res.status(201).send({
             status: 1,
@@ -104,6 +108,9 @@ exports.addSubCategory = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("SubCategory", "add sub category", {}, {}, addedBy);
+
 
         return res.status(200).send({
             status: 1,
@@ -197,6 +204,8 @@ exports.addSpecificCategory = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("SpecificCategory", "add specific category", {}, {}, addedBy);
 
         return res.status(201).send({
             status: 1,

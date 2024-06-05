@@ -3,6 +3,7 @@ const ProductRatingReview = require("model-hook/Model/productRatingReviewModel")
 const BlogComment = require("model-hook/Model/blogCommentsModel");
 const Product = require("model-hook/Model/productModel")
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 
 exports.addReportOnProductReview = async(req,res)=>{
@@ -62,6 +63,8 @@ exports.addReportOnProductReview = async(req,res)=>{
        if(!data){
             return res.status(404).send({status:0,message:"Error in creating report",data:[]});
         }
+
+        await createApplicationLog("Report", "add report on product review", {}, {}, addedBy);
 
         return res.status(201).send({status:1,message:"Record added successfully!",data:data})
 
@@ -134,6 +137,8 @@ exports.addReportOnBlogComment = async(req,res)=>{
             return res.status(404).send({status:0,message:"Error in creating report",data:[]});
         }
 
+        await createApplicationLog("Report", "add report on blog comment", {}, {}, addedBy);
+
         return res.status(201).send({status:1,message:"Record added successfully!",data:data})
 
     } catch (error) {
@@ -204,6 +209,8 @@ exports.addReportOnProduct = async(req,res)=>{
        if(!data){
             return res.status(404).send({status:0,message:"Error in creating report",data:[]});
         }
+
+        await createApplicationLog("Report", "add report on product", {}, {}, addedBy);
 
         return res.status(201).send({status:1,message:"Record added successfully!",data:data});
 

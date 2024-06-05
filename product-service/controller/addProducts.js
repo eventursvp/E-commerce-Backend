@@ -1,6 +1,7 @@
 const Product = require("model-hook/Model/productModel");
 const Admin = require("model-hook/Model/adminModel");
 const Categories = require("model-hook/Model/categoriesModel");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 const mongoose = require("mongoose");
 
@@ -313,6 +314,8 @@ exports.addProduct = async (req, res) => {
             });
         }
 
+        await createApplicationLog("Product", "add product", {}, {}, addedBy);
+
         return res.status(201).send({
             status: 1,
             message: "Record added successfully!",
@@ -351,6 +354,9 @@ exports.publishProduct = async(req,res)=>{
         if(!data){
             return res.status(404).send({status:0,message:"Record not found",data:[]})
         }
+
+        await createApplicationLog("Product", "publish product", {}, {}, addedBy);
+
         return res.status(200).send({status:1,message:"Record updated successfull",data:data})
     } catch (error) {
         console.log("Catch Error:==>", error);

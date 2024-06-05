@@ -20,10 +20,7 @@ router.post('/compareProduct',jwtValidation,compareProduct);
 router.post('/getSimilarProducts',jwtValidation,getSimilarProducts);
 router.post('/getRecentlyViewedProducts',jwtValidation,getRecentlyViewedProducts);
 
-router.post('/removeProductFromRecentView',jwtValidation,removeProductFromRecentView)
-
-
-
+router.post('/removeProductFromRecentView',jwtValidation,removeProductFromRecentView);
 
 
 

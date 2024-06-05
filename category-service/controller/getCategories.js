@@ -2,6 +2,7 @@ const Category = require("model-hook/Model/categoriesModel");
 const Admin = require("model-hook/Model/adminModel");
 const User = require("model-hook/Model/userModel");
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 exports.getOneCategory = async (req, res) => {
     try {
@@ -42,6 +43,8 @@ exports.getOneCategory = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("Categories", "fetched category", {}, {}, userId);
 
         return res.status(200).send({
             status: 1,
@@ -88,6 +91,8 @@ exports.getAllCategories = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("Categories", "fetched all category", {}, {}, userId);
 
         return res.status(200).send({
             status: 1,
@@ -145,6 +150,9 @@ exports.getOneSpecificCategory = async (req, res) => {
             });
         }
 
+        await createApplicationLog("Categories", "fetched one specific category", {}, {}, userId);
+
+
         return res.status(200).send({
             status: 1,
             message: "Record fetched successfully",
@@ -191,6 +199,8 @@ exports.getAllSpecificCategories = async (req, res) => {
             });
         }
 
+        await createApplicationLog("Categories", "fetched all specific category", {}, {}, userId);
+
         return res.status(200).send({
             status: 1,
             message: "Record fetched successfully",
@@ -233,6 +243,9 @@ exports.getOneSubCategory = async (req, res) => {
                 .send({ status: 0, message: "Record not found", data: [] });
         }
 
+        await createApplicationLog("Categories", "fetched one sub category", {}, {}, userId);
+
+
         return res
             .status(200)
             .send({
@@ -270,6 +283,8 @@ exports.getAllSubCategories = async (req, res) => {
                 .status(404)
                 .send({ status: 0, message: "Record not found", data: [] });
         }
+
+        await createApplicationLog("Categories", "fetched All sub category", {}, {}, addedBy);
 
         return res
             .status(200)
@@ -319,6 +334,9 @@ exports.getAllCategoriesName = async (req, res) => {
         const name = data.map((data) => {
             return data.name;
         });
+
+        await createApplicationLog("Categories", "fetched all categories name", {}, {}, addedBy);
+
 
         return res
             .status(200)
@@ -386,6 +404,8 @@ exports.getAllSubCategoriesName = async (req, res) => {
         const name = data.map((data) => {
             return data.name;
         });
+
+        await createApplicationLog("Categories", "fetched all sub categories name", {}, {}, addedBy);
 
         return res
             .status(200)
@@ -466,6 +486,9 @@ exports.getAllSpecificCategoriesName = async (req, res) => {
         const name = data.map((data) => {
             return data.name;
         });
+
+
+        await createApplicationLog("Categories", "fetched all specific categories name", {}, {}, addedBy);
 
         return res
             .status(200)

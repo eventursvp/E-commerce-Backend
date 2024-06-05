@@ -4,6 +4,7 @@ const Product = require("model-hook/Model/productModel");
 const Cart = require("model-hook/Model/cartModel");
 const mongoose = require('mongoose');
 const {createNotification} = require("model-hook/common_function/createNotification");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 
 exports.returnOrder = async(req,res)=>{
@@ -38,6 +39,8 @@ exports.returnOrder = async(req,res)=>{
         order.orderStatus = 'RETURN';
         await order.save();
         await createNotification(addedBy,"Order","OrderReturned","Order returned","Order returned Successfully",order._id);
+        await createApplicationLog("Order", "return order", {}, {}, addedBy);
+        
         return res.status(200).json({ status: 1, message: 'Order return successfully'});
     } catch (error) {
         console.log("Catch Error:==>", error);

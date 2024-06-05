@@ -1,6 +1,8 @@
 const Faq = require("model-hook/Model/faqModel");
 const Admin = require("model-hook/Model/adminModel");
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
+
 
 exports.getAllFaqs = async(req,res)=>{
     try {
@@ -33,6 +35,8 @@ exports.getAllFaqs = async(req,res)=>{
                 data: [],
             });
         }
+
+        await createApplicationLog("Faq", "get faqs", {}, {}, addedBy);
 
         return res.status(200).send({
             status: 1,
@@ -87,6 +91,8 @@ exports.getSingleFaq = async(req,res) => {
               data: [],
           });
       }
+
+      await createApplicationLog("Faq", "get single faq", {}, {}, addedBy);
 
       return res.status(200).send({
           status: 1,

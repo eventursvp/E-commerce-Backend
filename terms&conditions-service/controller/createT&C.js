@@ -1,6 +1,7 @@
 const TermsAndConditions = require("model-hook/Model/terms&Conditions");
 const Admin = require("model-hook/Model/adminModel");
 const mongoose = require('mongoose');
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 exports.addTermsAndCondition = async(req,res)=>{
     try {
@@ -42,6 +43,8 @@ exports.addTermsAndCondition = async(req,res)=>{
         if(!data){
             return res.status(404).send({status:0,message:"Error in creating terms and condition",data:[]});
         }
+
+        await createApplicationLog("TermsAndCondition", "add termsandcondition", {}, {}, addedBy);
 
         return res.status(201).send({status:1,message:"Record added successfully!",data:data})
     } catch (error) {

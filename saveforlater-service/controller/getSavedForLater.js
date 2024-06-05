@@ -2,6 +2,7 @@ const SaveForLater = require("model-hook/Model/saveforlaterModel");
 const Product = require("model-hook/Model/productModel");
 const Cart = require("model-hook/Model/cartModel");
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 exports.getAllSaveForLater = async (req, res) => {
     try {
@@ -77,6 +78,8 @@ exports.getAllSaveForLater = async (req, res) => {
         if(!data || data.length ===0){
             return res.status(404).send({status:0,message:"Record not found",data:[]})
         }
+
+        await createApplicationLog("SaveForLater", "get all saveforlater", {}, {}, addedBy);
 
         return res.status(200).send({
             status: 1,

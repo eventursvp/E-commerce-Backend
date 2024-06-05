@@ -1,5 +1,5 @@
 const Banner = require('model-hook/Model/bannerModel');
-
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 const Admin = require("model-hook/Model/adminModel");
 const { default: mongoose } = require("mongoose");
 
@@ -45,6 +45,8 @@ exports.updateBanner = async(req,res)=>{
                 data: [],
             });
         }
+
+        await createApplicationLog("Banner", "update banner", {}, {}, addedBy);
 
         return res.status(201).send({
             status: 1,

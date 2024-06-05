@@ -1,6 +1,7 @@
 const Offer = require('model-hook/Model/offerModel');
 const User = require('model-hook/Model/userModel');
 const Product = require('model-hook/Model/productModel');
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 const mongoose = require('mongoose');
 
@@ -29,6 +30,9 @@ exports.getOffer = async(req,res)=>{
                 data: [],
             });
         }
+
+        await createApplicationLog("Offer", "fetched offer", {}, {}, addedBy);
+
 
         return res.status(200).send({
             status: 1,
@@ -67,6 +71,8 @@ exports.getAllOffers = async(req,res)=>{
         if (!data || data.length === 0) {
             return res.status(404).send({ status: 0, message: "Record not found", data: [] });
         }
+
+        await createApplicationLog("Offer", "fetched all offer", {}, {}, addedBy);
 
         return res.status(200).send({
             status: 1,

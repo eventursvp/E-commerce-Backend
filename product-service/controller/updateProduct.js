@@ -1,5 +1,6 @@
 const Product = require("model-hook/Model/productModel");
 const Admin = require("model-hook/Model/adminModel");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 exports.updateProduct = async (req, res) => {
     try {
@@ -64,6 +65,8 @@ exports.updateProduct = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("Product", "update product", {}, {}, addedBy);
 
         return res.status(200).send({
             status: 1,

@@ -4,6 +4,8 @@ const Cart = require("model-hook/Model/cartModel");
 const Wishlist = require("model-hook/Model/wishlistModel");
 const WishListCollection = require("model-hook/Model/wishlistCollectionModel");
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
+
 
 exports.addToSaveForLater = async (req, res) => {
     try {
@@ -90,6 +92,9 @@ exports.addToSaveForLater = async (req, res) => {
             { $set: { isDeleted: true } },
             { new: true }
         );
+
+        await createApplicationLog("SaveForLater", "add save for later", {}, {}, addedBy);
+
         return res.status(200).send({
             status: 1,
             message: "Record added successfully!",
@@ -181,6 +186,8 @@ exports.addToList = async (req, res) => {
                 { $set: { isDeleted: false } },
                 { new: true }
             );
+
+            await createApplicationLog("SaveForLater", "add to list", {}, {}, addedBy);
 
             return res.status(200).send({
                 status: 1,

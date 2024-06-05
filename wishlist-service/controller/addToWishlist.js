@@ -1,6 +1,7 @@
 const Wishlist = require("model-hook/Model/wishlistModel");
 const User = require("model-hook/Model/userModel");
 const Product = require("model-hook/Model/productModel");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 const mongoose = require("mongoose");
 
@@ -61,6 +62,9 @@ exports.addtoWishlist = async (req, res) => {
         // Add the product to the wishlist
         wishlist.items.push(productId);
         await wishlist.save();
+
+        await createApplicationLog("Wishlist", "add wishlist", {}, {}, addedBy);
+
 
         return res.status(200).send({
             status: 1,

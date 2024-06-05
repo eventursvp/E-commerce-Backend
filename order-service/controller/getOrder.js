@@ -3,6 +3,7 @@ const User = require("model-hook/Model/userModel");
 const Product = require("model-hook/Model/productModel");
 const Cart = require("model-hook/Model/cartModel");
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 exports.getOrder = async (req, res) => {
     try {
@@ -157,6 +158,8 @@ exports.getOrder = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("Order", "fetched single order", {}, {}, addedBy);
 
         return res.status(403).send({
             status: 0,
@@ -327,6 +330,8 @@ exports.getAllOrders = async(req,res)=>{
             });
         }
 
+        await createApplicationLog("Order", "fetched all order", {}, {}, addedBy);
+
         return res.status(200).send({
             status: 0,
             message: "Record fetched successfully",
@@ -489,6 +494,8 @@ exports.getAdminOrders = async(req,res)=>{
                 data: [],
             });
         }
+
+        await createApplicationLog("Order", "fetched all admin order", {}, {}, addedBy);
 
         return res.status(200).send({
             status: 0,

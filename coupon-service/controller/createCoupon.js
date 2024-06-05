@@ -2,6 +2,7 @@ const Coupon = require("model-hook/Model/userCoupon");
 const Admin = require("model-hook/Model/adminModel");
 const Product = require("model-hook/Model/productModel");
 const mongoose = require('mongoose');
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 
 exports.createCoupon = async(req,res)=>{
@@ -75,6 +76,9 @@ exports.createCoupon = async(req,res)=>{
 
         // Save the coupon to the database
         await coupon.save();
+
+        await createApplicationLog("Coupon", "create coupon", {}, {}, addedBy);
+
 
         res.status(201).json({ message: 'Coupon created successfully', coupon });
 

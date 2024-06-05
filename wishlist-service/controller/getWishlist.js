@@ -1,6 +1,7 @@
 const Wishlist = require('model-hook/Model/wishlistModel');
 const User = require('model-hook/Model/userModel');
 const Product = require('model-hook/Model/productModel');
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 const mongoose = require('mongoose');
 
@@ -106,6 +107,8 @@ exports.getAllWishlist = async (req, res) => {
         if (!data || data.length === 0) {
             return res.status(404).send({ status: 0, message: "Record not found", data: [] });
         }
+
+        await createApplicationLog("Wishlist", "get all wishlist", {}, {}, addedBy);
 
         return res.status(200).send({
             status: 1,

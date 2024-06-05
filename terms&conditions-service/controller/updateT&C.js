@@ -1,6 +1,7 @@
 const TermsAndConditions = require("model-hook/Model/terms&Conditions");
 const Admin = require("model-hook/Model/adminModel");
 const mongoose = require('mongoose');
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 exports.updateTermsAndCondition = async(req,res)=>{
     try {
@@ -32,6 +33,8 @@ exports.updateTermsAndCondition = async(req,res)=>{
         if (!data) {
             return res.status(404).send({ status: 0, message: "Error updating terms and conditions", data: [] });
         }
+
+        await createApplicationLog("TermsAndCondition", "update terms and condition", {}, {}, addedBy);
 
         return res.status(201).send({ status: 1, message: "Record updated successfully!" });
     } catch (error) {

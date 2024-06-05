@@ -4,6 +4,7 @@ const Product = require("model-hook/Model/productModel");
 const Cart = require("model-hook/Model/cartModel");
 const mongoose = require('mongoose');
 const {createNotification} = require("model-hook/common_function/createNotification");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 
 exports.cancelOrder = async (req, res) => {
@@ -39,6 +40,8 @@ exports.cancelOrder = async (req, res) => {
         order.orderStatus = 'CANCELLED';
         await order.save();
         await createNotification(addedBy,"Order","OrderCancelled","Order cancelled","Order cancelled Successfully",order._id);
+        await createApplicationLog("Order", "order cancelled", {}, {}, addedBy);
+        
         return res.status(200).json({ status: 1, message: 'Order cancelled successfully'});
     } catch (error) {
         console.error('Error cancelling order:', error);

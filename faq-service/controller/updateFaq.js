@@ -2,6 +2,8 @@ const Faq = require("model-hook/Model/faqModel");
 const Admin = require("model-hook/Model/adminModel");
 const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
+const { createApplicationLog } = require("model-hook/common_function/createLog");
+
 
 exports.updateFaqQuestion = async (req, res) => {
     try {
@@ -63,6 +65,9 @@ exports.updateFaqQuestion = async (req, res) => {
                 messae: "Record updated successfully!",
             });
         }
+
+        await createApplicationLog("Faq", "update faq question", {}, {}, addedBy);
+
         return res.status(404).send({
             status: 1,
             messae: "Error in  deleting record",

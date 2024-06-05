@@ -1,6 +1,7 @@
 const Banner = require("model-hook/Model/bannerModel");
 const Admin = require("model-hook/Model/adminModel");
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 
 exports.addBanner = async(req,res)=>{
@@ -35,6 +36,8 @@ exports.addBanner = async(req,res)=>{
         if(!data){
             return res.status(404).send({status:0,message:"Error in creating banner",data:[]});
         }
+
+        await createApplicationLog("Banner", "create banner", {}, {}, addedBy);
 
         return res.status(201).send({status:1,message:"Record added successfully!",data:data})
     } catch (error) {

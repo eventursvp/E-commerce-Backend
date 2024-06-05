@@ -1,6 +1,7 @@
 const TermsAndConditions = require("model-hook/Model/terms&Conditions");
 const Admin = require("model-hook/Model/adminModel");
 const mongoose = require('mongoose');
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 exports.getTermsAndCondition = async(req,res)=>{
     try {
@@ -26,6 +27,8 @@ exports.getTermsAndCondition = async(req,res)=>{
         if (!data) {
             return res.status(404).send({ status: 0, message: "Record not found", data: [] });
         }
+
+        await createApplicationLog("TermsAndCondition", "get terms and condition", {}, {}, addedBy);
 
         return res.status(201).send({ status: 1, message: "Record fetched successfully!",data:data });
     } catch (error) {

@@ -3,6 +3,7 @@ const User = require("model-hook/Model/userModel");
 const Product = require("model-hook/Model/productModel");
 const WishlistCollection = require("model-hook/Model/wishlistCollectionModel");
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 exports.createCollection = async (req, res) => {
     try {
@@ -47,6 +48,8 @@ exports.createCollection = async (req, res) => {
                 data: [],
             });
         }
+
+        await createApplicationLog("WishlistCollection", "create wishlist collection", {}, {}, addedBy);
 
         return res.status(201).send({
             status: 1,
@@ -135,6 +138,8 @@ if (!variant) {
                 data: [],
             });
         }
+
+        await createApplicationLog("WishlistCollection", "add to collection", {}, {}, addedBy);
 
         return res.status(201).send({
             status: 1,

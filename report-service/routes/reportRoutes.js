@@ -21,10 +21,4 @@ router.post('/removeReport',jwtValidation,removeReport);
 
 
 
-
-
-
-
-
-
 module.exports = router;

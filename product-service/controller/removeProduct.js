@@ -1,6 +1,7 @@
 const Product = require("model-hook/Model/productModel");
 const Admin = require("model-hook/Model/adminModel");
 const RecentViewedProducts = require("model-hook/Model/recentViewedProduct");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 const mongoose = require("mongoose");
 
@@ -47,6 +48,9 @@ exports.removeProduct = async (req, res) => {
                 messae: "Record deleted successfully!",
             });
         }
+
+        await createApplicationLog("Product", "remove product", {}, {}, addedBy);
+
         return res.status(403).send({
             status: 1,
             messae: "Error in  deleting record",
@@ -102,6 +106,9 @@ exports.removeProductFromRecentView = async (req, res) => {
                 messae: "Record deleted successfully!",
             });
         }
+
+        await createApplicationLog("Product", "remove recent viewed product", {}, {}, addedBy);
+
         return res.status(403).send({
             status: 1,
             messae: "Error in  deleting record",

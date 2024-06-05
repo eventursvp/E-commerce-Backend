@@ -2,6 +2,7 @@ const Coupon = require("model-hook/Model/userCoupon");
 const Admin = require("model-hook/Model/adminModel");
 const Product = require("model-hook/Model/productModel");
 const mongoose = require('mongoose');
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 
 exports.getOneCoupon = async(req,res)=>{
@@ -30,6 +31,9 @@ exports.getOneCoupon = async(req,res)=>{
         if(!data){
             return res.status(404).send({status:0,message:"Record not found",data:[]})
         }
+
+        await createApplicationLog("Coupon", "get coupon", {}, {}, addedBy);
+
 
         return res.status(200).send({status:0,message:"Record fetched successfully",data:data})
     } catch (error) {
@@ -65,6 +69,8 @@ exports.getAllCoupons = async(req,res)=>{
         if(!data || data.length === 0){
             return res.status(404).send({status:0,message:"Record not found",data:[]})
         }
+
+        await createApplicationLog("Coupon", "get all coupon", {}, {}, addedBy);
 
         return res.status(200).send({status:0,message:"Record fetched successfully",data:data})
     } catch (error) {

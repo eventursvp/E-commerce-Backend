@@ -1,6 +1,7 @@
 const WishListCollection = require('model-hook/Model/wishlistCollectionModel');
 const User = require('model-hook/Model/userModel');
 const Product = require('model-hook/Model/productModel');
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 const mongoose = require('mongoose');
 
@@ -31,6 +32,9 @@ exports.removeWishlistCollection = async(req,res)=>{
           if(!data){
             return res.status(404).send({status:0,message:"Record not found",data:[]})
           }
+
+          await createApplicationLog("WishlistCollection", "remove wishlist collection", {}, {}, addedBy);
+
           return res.status(200).send({status:1,message:"Record deleted successfully!"})
     } catch (error) {
         console.log("Catch Error:==>", error);

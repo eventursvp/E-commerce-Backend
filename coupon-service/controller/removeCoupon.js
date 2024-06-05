@@ -2,6 +2,7 @@ const Coupon = require("model-hook/Model/userCoupon");
 const Admin = require("model-hook/Model/adminModel");
 const Product = require("model-hook/Model/productModel");
 const mongoose = require("mongoose");
+const { createApplicationLog } = require("model-hook/common_function/createLog");
 
 
 exports.removeCoupon = async (req, res) => {
@@ -51,6 +52,8 @@ exports.removeCoupon = async (req, res) => {
         if(!data){
             return res.status(404).send({status:0,message:"Record not found",data:[]})
         }
+
+        await createApplicationLog("Coupon", "remove coupon", {}, {}, addedBy);
 
         return res.status(200).send({status:0,message:"Record deleted successfully"})
     } catch (error) {
