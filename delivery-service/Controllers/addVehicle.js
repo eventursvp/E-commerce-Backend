@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const DeliveryBoy = require('model-hook/Model/deliveryBoyModel')
-const VehicleDetails = require("model-hook/Model/vehicleDetails")
+const VehicleDetails = require("model-hook/Model/vehicleDetailsModel")
 const { constants } = require("model-hook/common_function/constants")
 const { createApplicationLog } = require("model-hook/common_function/createLog")
 

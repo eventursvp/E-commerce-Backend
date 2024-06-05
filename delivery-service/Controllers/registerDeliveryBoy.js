@@ -1,5 +1,5 @@
 const DeliveryBoy = require('model-hook/Model/deliveryBoyModel')
-const VehicleDetails = require("model-hook/Model/vehicleDetails")
+const VehicleDetails = require("model-hook/Model/vehicleDetailsModel")
 const fs = require("fs")
 const jwt = require('jsonwebtoken')
 const { compileAndSendEmail } = require("model-hook/common_function/mailSending")

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const VehicleDetails = require("model-hook/Model/vehicleDetails")
+const VehicleDetails = require("model-hook/Model/vehicleDetailsModel")
 const { createApplicationLog } = require("model-hook/common_function/createLog")
 
 exports.getSingleVehicleDetail = async (req, res, next) => {

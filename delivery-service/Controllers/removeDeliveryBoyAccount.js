@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const DeliveryBoy = require("model-hook/Model/deliveryBoyModel")
-const VehicleDetails = require("model-hook/Model/vehicleDetails")
+const VehicleDetails = require("model-hook/Model/vehicleDetailsModel")
 const { createApplicationLog } = require("model-hook/common_function/createLog")
 
 exports.removeDeliveryBoyAccount = async (req, res, next) => {
