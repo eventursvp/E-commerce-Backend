@@ -14,7 +14,7 @@ let Orders = new Schema(
         cartId: { type: Schema.ObjectId, ref: "Cart" },
         addressId: { type: Schema.ObjectId, ref: "UserAddress" },
         productId: { type: Schema.ObjectId, ref: "Product" },
-        deliveryBoyId:{type:Schema.ObjectId,ref:"DeliveryBoy"},
+        deliveryBoyId:{type:Schema.ObjectId,ref:"DeliveryBoy",default:null},
         quantity: { type: Number },
         price: { type: Number },
         couponCode:{type:String,default:null}

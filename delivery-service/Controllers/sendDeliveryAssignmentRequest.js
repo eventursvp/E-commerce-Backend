@@ -1,8 +1,9 @@
 const mongoose = require("mongoose")
-const DeliveryAssignmentRequest = require("model-hook/Model/deliveryAssignmentRequest")
+const DeliveryAssignmentRequest = require("model-hook/Model/deliveryAssignmentRequestModel")
 const DeliveryBoy = require("model-hook/Model/deliveryBoyModel")
 const Orders = require("model-hook/Model/orderModel")
 const { createApplicationLog } = require("model-hook/common_function/createLog")
+const UserAddress = require("model-hook/Model/userAddressModel");
 
 exports.sendDeliveryAssignmentRequest = async (req, res, next) => {
     try {
@@ -24,17 +25,19 @@ exports.sendDeliveryAssignmentRequest = async (req, res, next) => {
         if (!mongoose.isValidObjectId(orderId)) {
             return res.status(400).send({ status: 0, message: "Invalid order id." })
         }
-        const checkOrder = await Orders.findOne({ _id: orderId }).populate("deliveryBoyId")
+        const checkOrder = await Orders.findOne({ _id: orderId }).populate("deliveryBoyId").populate("addressId")
         if (!checkOrder) {
             return res.status(404).send({ status: 0, message: "Order not found with given id." })
         }
-        if (checkOrder?.status !== "PACKED") {
+        if (!checkOrder?.addressId || checkOrder.addressId === null) {
+            return res.status(400).send({ status: 0, message: "Delivery address not specified into this order." })
+        }
+        if (checkOrder?.orderStatus !== "PACKED") {
             return res.status(400).send({ status: 0, message: "You can assign order if order is PACKED." })
         }
         if (checkOrder.deliveryBoyId) {
             return res.status(400).send({ status: 0, message: `This order delivery is already accept by ${checkOrder?.deliveryBoyId?.firstName} ${checkOrder?.deliveryBoyId?.lastName}` })
         }
-
         const checkAlreadyAssign = await DeliveryAssignmentRequest.findOne({ orderId: orderId, deliveryBoyId: deliveryBoyId })
         if (checkAlreadyAssign) {
             return res.status(400).send({ status: 0, message: "You have already sent a delivery request to this delivery boy." })
