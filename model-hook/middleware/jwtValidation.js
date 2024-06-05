@@ -60,7 +60,7 @@
 
 const jwt = require('jsonwebtoken');
 const User = require('../Model/userModel');
-const DeliveryBoy = require("../Model/deliveryBoyModel")
+const DeliveryBoy = require("../Model/deliveryBoyModel");
 
 exports.jwtValidation = async (req, res, next) => {
     try {
